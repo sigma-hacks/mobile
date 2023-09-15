@@ -1,9 +1,16 @@
-// import 'dart:convert';
 import 'dart:isolate';
-
-// import 'package:crypto/crypto.dart';
+import 'package:ekzh/services/secure_storage_service.dart';
+import 'package:encrypt/encrypt.dart';
 
 class CryptoService {
+
+  late final cryptoKey = "CryptoKey";
+
+  late Encrypter cryptor;
+  IV iv = IV.allZerosOfLength(16);
+
+  var isInitialized = false;
+
 
   static final CryptoService _instance = CryptoService._internal();
 
@@ -15,23 +22,29 @@ class CryptoService {
       // init logic
   }
 
+  Future<void> initialize() async {
+      final key = await SecureStorageService().getKey();
+      if (key != null) {
+        cryptor = Encrypter(AES(Key.fromBase64(key)));
+      } else {
+        final key = Key.fromSecureRandom(32);
+        cryptor = Encrypter(AES(key));
+        await SecureStorageService().saveKey(key.base64);
+      }
+      // await SecureStorageService().removeKey();
+      isInitialized = true;
+  }
+
   Future<String> encode(String string) async {
-    // var bytes = utf8.encode(string);  
-    // var digest = md5.convert(bytes);
-    // return digest.toString();
-    var some = await Isolate.run(() { return ""; });
-    return some;
+    return await Isolate.run(() { 
+      return cryptor.encrypt(string, iv: iv).base64;
+    });
   }
 
   Future<String> decode(String string) async {
-    // return "";
-    // var bytes = utf8.encode(string); 
-    // var digest = md5.convert(input);
-    // return digest.toString()
-    return await Isolate.run(() {return "";});
+    return await Isolate.run(() {
+      return cryptor.decrypt64(string, iv: iv);
+    });
   }
-
-  
-
-  
+   
 }
