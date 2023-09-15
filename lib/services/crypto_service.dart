@@ -7,10 +7,9 @@ class CryptoService {
   late final cryptoKey = "CryptoKey";
 
   late Encrypter cryptor;
-  IV iv = IV.allZerosOfLength(16);
+  IV get iv => IV.allZerosOfLength(16);
 
   var isInitialized = false;
-
 
   static final CryptoService _instance = CryptoService._internal();
 

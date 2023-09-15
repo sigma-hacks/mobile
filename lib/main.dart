@@ -12,4 +12,8 @@ void main() async {
   print(encoded);
   var decoded = await CryptoService().decode("tIHjeBm/5m+En42iVpEVFg==");
   print(decoded);
+  var decoded2 = await CryptoService().decode("tIHjeBm/5m+En42iVpEVFg==");
+  print(decoded2);
+  var decoded3 = await CryptoService().decode("tIHjeBm/5m+En42iVpEVFg==");
+  print(decoded3);
 }
