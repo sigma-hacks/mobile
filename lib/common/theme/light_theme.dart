@@ -7,7 +7,7 @@ ThemeData _themeLight = ThemeData.light(useMaterial3: true);
 ThemeData themeLight = _themeLight.copyWith(
   scaffoldBackgroundColor: AppColors.white,
   colorScheme: _schemeLight(_themeLight.colorScheme),
-  // textTheme: _textLight(_themeLight.textTheme),
+  textTheme: _textLight(_themeLight.textTheme),
   elevatedButtonTheme: ElevatedButtonThemeData(style: _elevButtonLight),
   textButtonTheme: TextButtonThemeData(style: _textButtonLight),
   outlinedButtonTheme: OutlinedButtonThemeData(style: _outlinedButtonLight),
@@ -23,57 +23,60 @@ ColorScheme _schemeLight(ColorScheme base) {
     // onTertiary: AppColors.textSecondary,
     // background: AppColors.greyLight,
     primary: AppColors.blue,
-    // error: AppColors.error,
+    error: AppColors.error,
   );
 }
 
-// TextTheme _textLight(TextTheme base) {
-//   return base.copyWith(
-//     bodyMedium: base.bodyMedium!.copyWith(
-//       fontSize: 16,
-//       height: 19.2 / 16,
-//       fontFamily: 'SF',
-//     ),
-//     bodyLarge: base.bodyLarge!.copyWith(
-//       fontSize: 16,
-//       fontWeight: FontWeight.w500,
-//       height: 19.2 / 16,
-//       fontFamily: 'SF',
-//       color: AppColors.textSecondary,
-//     ),
-//     bodySmall: base.bodySmall!.copyWith(
-//       fontSize: 16,
-//       height: 19.2 / 16,
-//       fontFamily: 'SF',
-//       color: AppColors.textSecondary,
-//     ),
-//     titleMedium: base.titleMedium!.copyWith(
-//       fontSize: 22,
-//       fontWeight: FontWeight.w500,
-//       height: 26.4 / 22,
-//       fontFamily: 'SF',
-//     ),
-//     titleLarge: base.titleLarge!.copyWith(
-//       fontSize: 30,
-//       fontWeight: FontWeight.w600,
-//       height: 36 / 30,
-//       fontFamily: 'SF',
-//     ),
-//     labelMedium: base.labelMedium!.copyWith(
-//       fontSize: 14,
-//       fontWeight: FontWeight.w500,
-//       height: 16.8 / 14,
-//       color: AppColors.textSecondary,
-//       fontFamily: 'SF',
-//     ),
-//     labelLarge: base.labelLarge!.copyWith(
-//       fontSize: 16,
-//       height: 17.6 / 16,
-//       fontFamily: 'SF',
-//       letterSpacing: 0.75,
-//     ),
-//   );
-// }
+TextTheme _textLight(TextTheme base) {
+  return base.copyWith(
+    bodyMedium: base.bodyMedium!.copyWith(
+      fontSize: 16,
+      height: 19.2 / 16,
+      // fontFamily: 'SF',
+    ),
+    // bodyLarge: base.bodyLarge!.copyWith(
+    //   fontSize: 16,
+    //   fontWeight: FontWeight.w500,
+    //   height: 19.2 / 16,
+    //   fontFamily: 'SF',
+    //   color: AppColors.textSecondary,
+    // ),
+    bodySmall: base.bodySmall!.copyWith(
+      fontSize: 14,
+      // fontFamily: 'SF',
+      color: AppColors.grey,
+    ),
+    titleMedium: base.titleMedium!.copyWith(
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+      // fontFamily: 'SF',
+    ),
+    titleSmall: base.titleMedium!.copyWith(
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+      // fontFamily: 'SF',
+    ),
+    // titleLarge: base.titleLarge!.copyWith(
+    //   fontSize: 30,
+    //   fontWeight: FontWeight.w600,
+    //   height: 36 / 30,
+    //   fontFamily: 'SF',
+    // ),
+    // labelMedium: base.labelMedium!.copyWith(
+    //   fontSize: 14,
+    //   fontWeight: FontWeight.w500,
+    //   height: 16.8 / 14,
+    //   color: AppColors.textSecondary,
+    //   fontFamily: 'SF',
+    // ),
+    // labelLarge: base.labelLarge!.copyWith(
+    //   fontSize: 16,
+    //   height: 17.6 / 16,
+    //   fontFamily: 'SF',
+    //   letterSpacing: 0.75,
+    // ),
+  );
+}
 
 ButtonStyle _elevButtonLight = ElevatedButton.styleFrom(
   backgroundColor: AppColors.blue,
@@ -115,18 +118,23 @@ InputDecorationTheme _inputDecorLight(InputDecorationTheme base) {
   return base.copyWith(
     isDense: true,
     filled: true,
-    fillColor: AppColors.blueLighter,
+    fillColor: MaterialStateColor.resolveWith((Set<MaterialState> states) =>
+        states.contains(MaterialState.error)
+            ? AppColors.error.withOpacity(0.15)
+            : AppColors.blueLighter),
     // labelStyle: const TextStyle(color: AppColor.textLow),
-    // enabledBorder: const OutlineInputBorder(
-    //     // borderRadius: BorderRadius.circular(8),
-    //     borderSide: BorderSide(color: AppColor.greyLight)),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: BorderSide.none,
+    ),
     focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: AppColors.blueLight)),
-    // errorBorder: OutlineInputBorder(
-    //   borderRadius: BorderRadius.circular(8),
-    //   borderSide: const BorderSide(color: AppColor.error),
-    // ),
+      borderRadius: BorderRadius.circular(10),
+      borderSide: BorderSide.none,
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: BorderSide.none,
+    ),
     border: OutlineInputBorder(
       borderSide: BorderSide.none,
       borderRadius: BorderRadius.circular(10),
