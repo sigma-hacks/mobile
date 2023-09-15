@@ -56,12 +56,12 @@ TextTheme _textLight(TextTheme base) {
       fontWeight: FontWeight.w500,
       // fontFamily: 'SF',
     ),
-    // titleLarge: base.titleLarge!.copyWith(
-    //   fontSize: 30,
-    //   fontWeight: FontWeight.w600,
-    //   height: 36 / 30,
-    //   fontFamily: 'SF',
-    // ),
+    titleLarge: base.titleLarge!.copyWith(
+      fontSize: 24,
+      fontWeight: FontWeight.w700,
+      color: AppColors.blue,
+      // fontFamily: 'SF',
+    ),
     // labelMedium: base.labelMedium!.copyWith(
     //   fontSize: 14,
     //   fontWeight: FontWeight.w500,
@@ -80,7 +80,7 @@ TextTheme _textLight(TextTheme base) {
 
 ButtonStyle _elevButtonLight = ElevatedButton.styleFrom(
   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-  textStyle: TextStyle(fontSize: 20),
+  textStyle: TextStyle(fontSize: 18),
   backgroundColor: AppColors.blue,
   foregroundColor: AppColors.white,
   shape: StadiumBorder(),
@@ -92,9 +92,9 @@ ButtonStyle _textButtonLight = TextButton.styleFrom(
 );
 
 ButtonStyle _outlinedButtonLight = OutlinedButton.styleFrom(
-  shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(20),
-      side: BorderSide(color: AppColors.blue, width: 2)),
+  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+  textStyle: TextStyle(fontSize: 18),
+  shape: StadiumBorder(side: BorderSide(color: AppColors.blue, width: 2)),
 );
 
 AppBarTheme _appBarLight(AppBarTheme base) {
