@@ -5,14 +5,14 @@ import 'app_colors.dart';
 ThemeData _themeLight = ThemeData.light(useMaterial3: true);
 
 ThemeData themeLight = _themeLight.copyWith(
-  scaffoldBackgroundColor: AppColors.white,
+  scaffoldBackgroundColor: AppColors.grey,
   colorScheme: _schemeLight(_themeLight.colorScheme),
   textTheme: _textLight(_themeLight.textTheme),
   elevatedButtonTheme: ElevatedButtonThemeData(style: _elevButtonLight),
   textButtonTheme: TextButtonThemeData(style: _textButtonLight),
   outlinedButtonTheme: OutlinedButtonThemeData(style: _outlinedButtonLight),
   appBarTheme: _appBarLight(_themeLight.appBarTheme),
-  // bottomAppBarTheme: _bottomAppBarLight(_themeLight.bottomAppBarTheme),
+  bottomAppBarTheme: _bottomAppBarLight(_themeLight.bottomAppBarTheme),
   inputDecorationTheme: _inputDecorLight(_themeLight.inputDecorationTheme),
 );
 
@@ -79,9 +79,11 @@ TextTheme _textLight(TextTheme base) {
 }
 
 ButtonStyle _elevButtonLight = ElevatedButton.styleFrom(
+  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+  textStyle: TextStyle(fontSize: 20),
   backgroundColor: AppColors.blue,
   foregroundColor: AppColors.white,
-  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+  shape: StadiumBorder(),
 );
 
 ButtonStyle _textButtonLight = TextButton.styleFrom(
@@ -105,14 +107,14 @@ AppBarTheme _appBarLight(AppBarTheme base) {
   );
 }
 
-// BottomAppBarTheme _bottomAppBarLight(BottomAppBarTheme base) {
-//   return base.copyWith(
-//     color: AppColors.white,
-//     elevation: 3,
-//     surfaceTintColor: AppColors.white,
-//     shadowColor: AppColors.black,
-//   );
-// }
+BottomAppBarTheme _bottomAppBarLight(BottomAppBarTheme base) {
+  return base.copyWith(
+    color: AppColors.white,
+    elevation: 3,
+    surfaceTintColor: AppColors.white,
+    shadowColor: AppColors.black,
+  );
+}
 
 InputDecorationTheme _inputDecorLight(InputDecorationTheme base) {
   return base.copyWith(

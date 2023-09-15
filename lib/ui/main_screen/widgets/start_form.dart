@@ -3,29 +3,29 @@ import 'package:go_router/go_router.dart';
 
 import '../../../common/navigation/route_name.dart';
 
-class AuthForm extends StatefulWidget {
-  const AuthForm({super.key});
+class StartForm extends StatefulWidget {
+  const StartForm({super.key});
 
   @override
-  State<AuthForm> createState() => _AuthFormState();
+  State<StartForm> createState() => _StartFormFormState();
 }
 
-class _AuthFormState extends State<AuthForm> {
-  late TextEditingController loginController;
-  late TextEditingController passwordController;
+class _StartFormFormState extends State<StartForm> {
+  late TextEditingController wayController;
+  late TextEditingController transportController;
   late GlobalKey<FormState> formKey;
   @override
   void initState() {
     super.initState();
-    loginController = TextEditingController()..text = 'test@mail.ru';
-    passwordController = TextEditingController()..text = '123qwe123';
+    wayController = TextEditingController()..text = '150A';
+    transportController = TextEditingController()..text = 'x123xx777';
     formKey = GlobalKey<FormState>();
   }
 
   @override
   void dispose() {
-    loginController.dispose();
-    passwordController.dispose();
+    wayController.dispose();
+    transportController.dispose();
     super.dispose();
   }
 
@@ -36,39 +36,38 @@ class _AuthFormState extends State<AuthForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Номер сотрудника'),
+          const Text('Номер маршрута'),
           const SizedBox(height: 8),
           TextFormField(
-            controller: loginController,
+            controller: wayController,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Введите логин';
+                return 'Введите номер маршрута';
               }
               return null;
             },
           ),
           const SizedBox(height: 12),
-          const Text('Код авторизации'),
+          const Text('Номер Т/С'),
           const SizedBox(height: 8),
           TextFormField(
-            controller: passwordController,
+            controller: transportController,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Введите пароль';
+                return 'Введите номер Т/С';
               }
               return null;
             },
           ),
           const SizedBox(height: 32),
           Center(
-            child: OutlinedButton(
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  context.goNamed(RouteName.base);
-                }
-              },
-              child: const Text('Войти'),
-            ),
+            child: ElevatedButton(
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    // context.goNamed(RouteName.base);
+                  }
+                },
+                child: Text('Начать рабочий день')),
           ),
         ],
       ),

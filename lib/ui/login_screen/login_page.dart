@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../common/theme/app_colors.dart';
 import '../common/logo_text.dart';
+import '../common/wrapper.dart';
 import 'widgets/auth_form.dart';
 
 class LoginPage extends StatelessWidget {
@@ -16,13 +17,7 @@ class LoginPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         body: Center(
           child: SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.all(28),
-              margin: const EdgeInsets.all(32),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(15),
-              ),
+            child: Wrapper(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
