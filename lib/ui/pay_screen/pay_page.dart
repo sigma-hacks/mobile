@@ -1,3 +1,4 @@
+import 'package:ekzh/common/navigation/route_name.dart';
 import 'package:ekzh/models/passenger.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -27,7 +28,7 @@ class PayPage extends StatelessWidget {
               alignment: Alignment.topRight,
               child: IconButton(
                   onPressed: () {
-                    context.pop();
+                    context.goNamed(RouteName.base);
                   },
                   icon: const Icon(
                     Icons.close,
