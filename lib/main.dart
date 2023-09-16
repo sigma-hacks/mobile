@@ -12,8 +12,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CryptoService().initialize();
 
-  var result = await HttpsService().auth(email: "test@mail.ru", pass: "123qwe123");
-  print(result);
+  // var result = await HttpsService().auth(email: "test@mail.ru", pass: "123qwe123");
+  // print(result);
 
   runApp(const App());
 }
