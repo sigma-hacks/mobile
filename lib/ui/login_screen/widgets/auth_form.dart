@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../common/navigation/route_name.dart';
 import '../../../common/theme/app_colors.dart';
+import '../../../cubits/ui_cubit.dart';
+import '../../../models/app_tabs.dart';
 import '../../common/out_button.dart';
 
 class AuthForm extends StatefulWidget {
@@ -69,20 +72,11 @@ class _AuthFormState extends State<AuthForm> {
             text: 'Войти',
             onTap: () {
               if (formKey.currentState!.validate()) {
+                BlocProvider.of<UiCubit>(context).updateTab(AppTabs.work);
                 context.goNamed(RouteName.base);
               }
             },
           ),
-          // Center(
-          //   child: OutlinedButton(
-          //     onPressed: () {
-          // if (formKey.currentState!.validate()) {
-          //   context.goNamed(RouteName.base);
-          // }
-          //     },
-          //     child: const Text('Войти'),
-          //   ),
-          // ),
         ],
       ),
     );

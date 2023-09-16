@@ -7,7 +7,7 @@ import '../../data/mok.dart';
 import '../common/passenger_card.dart';
 import '../common/cost_info.dart';
 import '../common/way.dart';
-import 'widgets/date_time_ticket.dart';
+import '../work_screen/widgets/date_time_work.dart';
 import 'widgets/transport.dart';
 
 class CheckPage extends StatelessWidget {
@@ -62,7 +62,9 @@ class CheckPage extends StatelessWidget {
                                 sale: 12.25,
                               ),
                               Transport(),
-                              DateTimeTicket(),
+                              DateTimeWork(
+                                dateTime: DateTime.now(),
+                              ),
                             ],
                           ),
                         ),

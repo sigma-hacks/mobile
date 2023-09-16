@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../common/theme/app_colors.dart';
 import '../../models/passenger.dart';
@@ -19,29 +20,22 @@ class PassengerCard extends StatelessWidget {
               passenger.name,
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            SizedBox(height: 18),
-            Text('Тариф:'),
-            Row(
-              children: [
-                Spacer(),
-                Text(
-                  passenger.tariff.name,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.warning_amber_rounded,
-                          color: AppColors.grey,
-                        )),
-                  ),
-                ),
-              ],
+            const SizedBox(height: 12),
+            Text(
+              '${DateTime.now().difference(passenger.bday).inDays ~/ 365} лет',
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-            SizedBox(height: 18),
+            Text(
+              DateFormat('dd.MM.yyyy').format(passenger.bday),
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            const SizedBox(height: 18),
+            const Text('Тариф:'),
+            Text(
+              passenger.tariff.name,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 18),
             Text(passenger.cardNumber),
             Text(
               'до 01.01.2026',

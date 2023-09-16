@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../cubits/ui_cubit.dart';
+import '../../../models/app_tabs.dart';
 import '../../../models/work.dart';
 
 class StartForm extends StatefulWidget {
@@ -65,10 +66,11 @@ class _StartFormFormState extends State<StartForm> {
             child: ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
+                    BlocProvider.of<UiCubit>(context).updateTab(AppTabs.main);
                     BlocProvider.of<UiCubit>(context).updateWork(Work.process);
                   }
                 },
-                child: const Text('Начать рабочий день')),
+                child: const Text('Начать')),
           ),
         ],
       ),

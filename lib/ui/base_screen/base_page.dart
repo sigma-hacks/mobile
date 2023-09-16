@@ -6,6 +6,7 @@ import '../../cubits/ui_cubit.dart';
 import '../../models/state/app_state.dart';
 import '../../models/work.dart';
 import '../main_screen/main_page.dart';
+import '../work_screen/work_page.dart';
 import '../profile_screen/profile_page.dart';
 import 'widgets/qr_button.dart';
 
@@ -23,7 +24,7 @@ class BasePage extends StatelessWidget {
 
   final _bottomItems = const [
     BottomItem(icon: Icons.home, label: 'Главная'),
-    BottomItem(icon: Icons.person, label: 'Профиль'),
+    BottomItem(icon: Icons.work_history_rounded, label: 'Смена'),
   ];
 
   @override
@@ -33,14 +34,11 @@ class BasePage extends StatelessWidget {
         int currentIndex = AppTabs.values.indexOf(state.currentTab);
         bool isStop = state.currentWork == Work.stop;
         return Scaffold(
-          // appBar: AppBar(
-          //   title: Text(_bottomItems[currentIndex].label),
-          // ),
-          body: state.currentTab == AppTabs.main ? MainPage() : ProfilePage(),
+          body: state.currentTab == AppTabs.main ? MainPage() : WorkPage(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton:
-              state.currentWork == Work.stop ? null : const QRButton(),
+              state.currentWork == Work.process ? const QRButton() : null,
           bottomNavigationBar: BottomAppBar(
             child: SizedBox(
               height: 60,
@@ -81,7 +79,7 @@ class BasePage extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         BlocProvider.of<UiCubit>(context)
-                            .updateTab(AppTabs.other);
+                            .updateTab(AppTabs.work);
                       },
                       child: Column(
                         mainAxisSize: MainAxisSize.min,

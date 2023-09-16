@@ -24,7 +24,7 @@ class PaymentMethod extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(15),
       onTap: () {
-        context.goNamed(RouteName.check);
+        // context.goNamed(RouteName.check);
       },
       child: Ink(
         padding: const EdgeInsets.all(16),

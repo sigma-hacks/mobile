@@ -3,6 +3,7 @@ import 'tariff.dart';
 
 class Passenger {
   final String name;
+  final DateTime bday;
   final Tariff tariff;
   final String cardNumber;
   final CardType cardType;
@@ -12,5 +13,6 @@ class Passenger {
     required this.tariff,
     required this.cardNumber,
     required this.cardType,
+    required this.bday,
   });
 }
