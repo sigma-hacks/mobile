@@ -60,14 +60,15 @@ class _StartFormFormState extends State<StartForm> {
             },
           ),
           const SizedBox(height: 32),
-          Center(
+          SizedBox(
+            width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     BlocProvider.of<UiCubit>(context).updateWork(Work.process);
                   }
                 },
-                child: Text('Начать рабочий день')),
+                child: const Text('Начать рабочий день')),
           ),
         ],
       ),

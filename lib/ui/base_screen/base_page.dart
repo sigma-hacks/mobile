@@ -33,9 +33,9 @@ class BasePage extends StatelessWidget {
         int currentIndex = AppTabs.values.indexOf(state.currentTab);
         bool isStop = state.currentWork == Work.stop;
         return Scaffold(
-          appBar: AppBar(
-            title: Text(_bottomItems[currentIndex].label),
-          ),
+          // appBar: AppBar(
+          //   title: Text(_bottomItems[currentIndex].label),
+          // ),
           body: state.currentTab == AppTabs.main ? MainPage() : ProfilePage(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,

@@ -83,7 +83,7 @@ ButtonStyle _elevButtonLight = ElevatedButton.styleFrom(
   textStyle: TextStyle(fontSize: 18),
   backgroundColor: AppColors.blue,
   foregroundColor: AppColors.white,
-  shape: StadiumBorder(),
+  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
 );
 
 ButtonStyle _textButtonLight = TextButton.styleFrom(

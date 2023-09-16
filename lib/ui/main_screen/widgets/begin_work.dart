@@ -10,17 +10,23 @@ class BeginWork extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text('Начало смены'),
-        Divider(
-          color: AppColors.blueLight,
-        ),
-        Text('ФИО'),
-        const SizedBox(height: 16),
-        StartForm(),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Начало смены',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          Divider(
+            color: AppColors.blueLight,
+          ),
+          Text('ФИО'),
+          const SizedBox(height: 16),
+          StartForm(),
+        ],
+      ),
     );
   }
 }
