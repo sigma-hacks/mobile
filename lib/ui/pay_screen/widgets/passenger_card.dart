@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../common/theme/app_colors.dart';
+import '../../../models/passenger.dart';
 import '../../common/wrapper.dart';
 
 class PassengerCard extends StatelessWidget {
-  const PassengerCard({super.key});
+  final Passenger passenger;
+  const PassengerCard({super.key, required this.passenger});
 
   @override
   Widget build(BuildContext context) {
@@ -13,15 +15,31 @@ class PassengerCard extends StatelessWidget {
         color: AppColors.blueLighter,
         child: Column(
           children: [
-            Text('ФИО'),
+            Text(passenger.name),
             SizedBox(height: 24),
             Text('Тариф:'),
-            Text(
-              'Школьный',
-              style: Theme.of(context).textTheme.titleLarge,
+            Row(
+              children: [
+                Spacer(),
+                Text(
+                  passenger.tariff.name,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.warning_amber_rounded,
+                          color: AppColors.grey,
+                        )),
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 24),
-            Text('2202-10**-****-3325'),
+            Text(passenger.cardNumber),
             Text(
               'до 01.01.2026',
               style: Theme.of(context).textTheme.bodySmall,

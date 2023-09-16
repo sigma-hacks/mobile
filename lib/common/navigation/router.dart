@@ -1,3 +1,4 @@
+import 'package:ekzh/data/mok.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -28,7 +29,7 @@ final GoRouter router = GoRouter(
       name: RouteName.pay,
       path: RouteName.pay,
       builder: (BuildContext context, GoRouterState state) {
-        return const PayPage();
+        return PayPage(passenger: passenger);
       },
     ),
     GoRoute(
