@@ -1,51 +1,39 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:hive_flutter/hive_flutter.dart';
 
-class DataResponse<T> {
-  final Bool status;
-  final List<String> message;
-  final T data;
+class AuthResponse {
+  final bool status;
+  final List<dynamic> message;
+  final AuthToken data;
 
-  DataResponse({
+  AuthResponse({
     required this.status,
     required this.message,
     required this.data,
   });
 
-  factory DataResponse.fromJson(Map<String, dynamic> json) {
-    return DataResponse(
-      status: json['status'] as Bool,
-      message: json['message'] as List<String>,
-      data: json['data'] as T,
+  factory AuthResponse.fromJson(Map<String, dynamic> json) {
+    return AuthResponse(
+      status: json['status'] as bool,
+      message: json['message'] as List<dynamic>,
+      data: AuthToken.fromJson(json['data']),
     );
   }
-
 }
 
-// {
-//     "status": true,
-//     "data": {
-//         "token": "8|HYVJROSgjDOQeRkzNDS6nKlXZxhMzzViA8NjxTEf48d55126"
-//     },
-//     "message": [
-//         "User login successfully."
-//     ]
-// }
+class AuthToken {
+  final String token;
 
-class AuthResponse {
-    final String token;
+  AuthToken({
+    required this.token,
+  });
 
-    AuthResponse({
-      required this.token,
-    });
-
-    factory AuthResponse.fromJson(Map<String,dynamic> json) {
-      return AuthResponse(
-        token: json["token"] as String,
-      );
-    }
+  factory AuthToken.fromJson(Map<String,dynamic> json) {
+    return AuthToken(
+      token: json["token"] as String,
+    );
+  }
 }
 
 @HiveType(typeId: 0)

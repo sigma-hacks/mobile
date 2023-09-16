@@ -1,6 +1,7 @@
 import 'dart:convert';
-// import 'package:ekzh/services/entities/auth_entities.dart';
-// import 'package:flutter/foundation.dart';
+import 'dart:async';
+import 'dart:isolate';
+import 'package:ekzh/services/entities/auth_entities.dart';
 import 'package:http/http.dart';
 
 class HttpsService {
@@ -18,13 +19,8 @@ class HttpsService {
   String baseUrl = "mocard.ru";
   String api = "/api";
   final client = Client();
-// {
-//     "email": "test@mail.ru",
-//     "password": "123qwe123"
 
-// }
-// <DataResponse<AuthResponse>>
-  Future auth({required String email, required String pass}) {
+  Future<String> auth({required String email, required String pass}) async {
     Map request = {
       "email": email,
       "password": pass
@@ -34,15 +30,18 @@ class HttpsService {
     };
     final url = Uri.https(baseUrl, '/api/auth/login');
     final body = json.encode(request);
-    // compute((message) => null, message)
-    final response = client.post( 
+    final response = await client.post( 
       url, 
       headers: headers, 
       body: body,
       );
-    // final response = client.get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
-
-    return response;
+    return await Isolate.run(() {
+      if (response.statusCode == 200) {
+        var value = AuthResponse.fromJson(jsonDecode(response.body));
+        return value.data.token;
+      } else {
+        throw Exception("Failed to logIn");
+      }
+    });
   }
-
 }
