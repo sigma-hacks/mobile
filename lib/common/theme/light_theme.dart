@@ -34,13 +34,13 @@ TextTheme _textLight(TextTheme base) {
       height: 19.2 / 16,
       // fontFamily: 'SF',
     ),
-    // bodyLarge: base.bodyLarge!.copyWith(
-    //   fontSize: 16,
-    //   fontWeight: FontWeight.w500,
-    //   height: 19.2 / 16,
-    //   fontFamily: 'SF',
-    //   color: AppColors.textSecondary,
-    // ),
+    labelLarge: base.labelLarge!.copyWith(
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      height: 19.2 / 16,
+      // fontFamily: 'SF',
+      color: AppColors.blue,
+    ),
     bodySmall: base.bodySmall!.copyWith(
       fontSize: 14,
       // fontFamily: 'SF',
@@ -123,7 +123,7 @@ InputDecorationTheme _inputDecorLight(InputDecorationTheme base) {
     fillColor: MaterialStateColor.resolveWith((Set<MaterialState> states) =>
         states.contains(MaterialState.error)
             ? AppColors.error.withOpacity(0.15)
-            : AppColors.blueLighter),
+            : AppColors.greyLight),
     // labelStyle: const TextStyle(color: AppColor.textLow),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),

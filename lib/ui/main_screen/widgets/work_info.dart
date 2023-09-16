@@ -1,6 +1,8 @@
+import 'package:ekzh/common/navigation/route_name.dart';
 import 'package:ekzh/ui/common/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../common/theme/app_colors.dart';
 import '../../../cubits/ui_cubit.dart';
@@ -50,34 +52,37 @@ class WorkInfo extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 12),
-                Text('ФИО'),
+                Text(
+                  'Петров И.И.',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
                 const SizedBox(height: 20),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
                       children: [
-                        Text('Номер Т/С'),
+                        Text(
+                          'Номер Т/С',
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
                         const SizedBox(height: 8),
                         Text(
                           'АБ2234В 51RUS',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(color: AppColors.blue),
+                          style: Theme.of(context).textTheme.labelLarge,
                         ),
                       ],
                     ),
                     Column(
                       children: [
-                        Text('Маршрут'),
+                        Text(
+                          'Маршрут',
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
                         const SizedBox(height: 8),
                         Text(
                           '250А',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(color: AppColors.blue),
+                          style: Theme.of(context).textTheme.labelLarge,
                         ),
                       ],
                     ),
@@ -110,6 +115,9 @@ class WorkInfo extends StatelessWidget {
                     itemCount: 50,
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
+                        onTap: () {
+                          context.pushNamed(RouteName.check);
+                        },
                         leading: CircleAvatar(
                           radius: 20,
                           backgroundColor: AppColors.blueLighter,

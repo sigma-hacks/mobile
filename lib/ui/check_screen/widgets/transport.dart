@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../common/theme/app_colors.dart';
 
-class DateTimeTicket extends StatelessWidget {
-  const DateTimeTicket({super.key});
+class Transport extends StatelessWidget {
+  const Transport({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +14,11 @@ class DateTimeTicket extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Дата покупки',
+              'Маршрут',
               style: Theme.of(context).textTheme.bodySmall,
             ),
             Text(
-              '15.09.2023',
+              '150 А',
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
@@ -30,11 +30,11 @@ class DateTimeTicket extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              'Время',
+              'Номер Т/С',
               style: Theme.of(context).textTheme.bodySmall,
             ),
             Text(
-              '08:42',
+              'А123АА777',
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!

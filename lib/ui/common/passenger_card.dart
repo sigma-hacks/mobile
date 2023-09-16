@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../common/theme/app_colors.dart';
-import '../../../models/passenger.dart';
-import '../../common/wrapper.dart';
+import '../../common/theme/app_colors.dart';
+import '../../models/passenger.dart';
+import 'wrapper.dart';
 
 class PassengerCard extends StatelessWidget {
   final Passenger passenger;
@@ -15,8 +15,11 @@ class PassengerCard extends StatelessWidget {
         color: AppColors.blueLighter,
         child: Column(
           children: [
-            Text(passenger.name),
-            SizedBox(height: 24),
+            Text(
+              passenger.name,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            SizedBox(height: 18),
             Text('Тариф:'),
             Row(
               children: [
@@ -38,7 +41,7 @@ class PassengerCard extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 24),
+            SizedBox(height: 18),
             Text(passenger.cardNumber),
             Text(
               'до 01.01.2026',

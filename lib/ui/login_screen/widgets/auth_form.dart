@@ -53,6 +53,7 @@ class _AuthFormState extends State<AuthForm> {
           const Text('Код авторизации'),
           const SizedBox(height: 8),
           TextFormField(
+            obscureText: true,
             controller: passwordController,
             validator: (value) {
               if (value == null || value.isEmpty) {

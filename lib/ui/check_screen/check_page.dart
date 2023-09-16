@@ -1,11 +1,14 @@
-import 'package:ekzh/ui/pay_screen/widgets/passenger_card.dart';
-import 'package:ekzh/ui/pay_screen/widgets/way.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../common/navigation/route_name.dart';
 import '../../common/theme/app_colors.dart';
 import '../../data/mok.dart';
+import '../common/passenger_card.dart';
+import '../common/cost_info.dart';
+import '../common/way.dart';
 import 'widgets/date_time_ticket.dart';
+import 'widgets/transport.dart';
 
 class CheckPage extends StatelessWidget {
   const CheckPage({super.key});
@@ -24,7 +27,7 @@ class CheckPage extends StatelessWidget {
                 alignment: Alignment.bottomRight,
                 child: IconButton(
                   onPressed: () {
-                    context.pop();
+                    context.goNamed(RouteName.base);
                   },
                   icon: const Icon(
                     Icons.close,
@@ -49,11 +52,20 @@ class CheckPage extends StatelessWidget {
                       children: [
                         PassengerCard(passenger: passenger),
                         SizedBox(height: 12),
-                        Way(),
-                        SizedBox(height: 12),
-                        DateTimeTicket(),
-                        SizedBox(height: 12),
-                        Expanded(child: Center(child: Text('ТУТ ЕЩЁ ИНФА'))),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Way(),
+                              CostInfo(
+                                fullCost: 25,
+                                sale: 12.25,
+                              ),
+                              Transport(),
+                              DateTimeTicket(),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),

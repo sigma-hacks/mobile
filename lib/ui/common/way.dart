@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../common/theme/app_colors.dart';
+import '../../common/theme/app_colors.dart';
 
 class Way extends StatelessWidget {
   const Way({super.key});

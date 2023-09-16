@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../common/navigation/route_name.dart';
 import '../../../common/theme/app_colors.dart';
 
 class PaymentMethod extends StatelessWidget {
@@ -21,7 +23,9 @@ class PaymentMethod extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(15),
-      onTap: () {},
+      onTap: () {
+        context.goNamed(RouteName.check);
+      },
       child: Ink(
         padding: const EdgeInsets.all(16),
         height: 100,
