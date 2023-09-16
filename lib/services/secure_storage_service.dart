@@ -1,9 +1,12 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SecureStorageService {
+ 
+
   static final SecureStorageService _instance = SecureStorageService._internal();
 
-  final String key = "EncryptionKey";
+  final String _key = "EncryptionKey";
+  final String _tokenKey = "TokenKey";
 // Create storage
   final FlutterSecureStorage storage = FlutterSecureStorage(aOptions: AndroidOptions(encryptedSharedPreferences: true));
 
@@ -30,20 +33,34 @@ class SecureStorageService {
       // init logic
   }
 
+  // MARK: - Crypto Key
   Future<void> saveKey(String value) async {
-    return await storage.write(key: key, value: value);
+    return await storage.write(key: _key, value: value);
   }
 
   Future<String?> getKey() async {
-    return await storage.read(key: key);
+    return await storage.read(key: _key);
   }
 
   Future<void> removeKey() async {
-    return await storage.delete(key: key);
+    return await storage.delete(key: _key);
   }
 
   Future<void> removeAll() async {
     return await storage.deleteAll();
+  }
+
+  // MARK: - Token
+  Future<void> saveToken(String value) async {
+    return await storage.write(key: _tokenKey, value: value);
+  }
+
+  Future<String?> getToken() async {
+    return await storage.read(key: _tokenKey);  
+  }
+
+  Future<void> removeToken() async {
+    return await storage.delete(key: _tokenKey);
   }
 
 }
