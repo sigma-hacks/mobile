@@ -47,3 +47,4 @@ web/
 windows/
 
 *.g.dart
+*.freezed.dart
