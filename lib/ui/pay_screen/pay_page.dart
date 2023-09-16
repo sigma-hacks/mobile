@@ -1,8 +1,7 @@
-import 'package:ekzh/common/navigation/route_name.dart';
-import 'package:ekzh/models/passenger.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../common/navigation/route_name.dart';
 import '../../common/theme/app_colors.dart';
 import '../../models/passenger.dart';
 import '../common/cost_info.dart';

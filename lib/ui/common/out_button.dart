@@ -21,7 +21,6 @@ class OutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      // borderRadius: BorderRadius.circular(15),
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -33,7 +32,10 @@ class OutButton extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(color: contentColor),
+          style: Theme.of(context)
+              .textTheme
+              .labelLarge!
+              .copyWith(color: contentColor),
           textAlign: TextAlign.center,
         ),
       ),

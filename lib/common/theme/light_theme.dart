@@ -5,7 +5,7 @@ import 'app_colors.dart';
 ThemeData _themeLight = ThemeData.light(useMaterial3: true);
 
 ThemeData themeLight = _themeLight.copyWith(
-  scaffoldBackgroundColor: AppColors.grey,
+  scaffoldBackgroundColor: AppColors.white,
   colorScheme: _schemeLight(_themeLight.colorScheme),
   textTheme: _textLight(_themeLight.textTheme),
   elevatedButtonTheme: ElevatedButtonThemeData(style: _elevButtonLight),
