@@ -1,0 +1,1 @@
+enum AppTabs { main, other }

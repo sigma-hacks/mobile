@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../../common/navigation/route_name.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../cubits/ui_cubit.dart';
+import '../../../models/work.dart';
 
 class StartForm extends StatefulWidget {
   const StartForm({super.key});
@@ -64,7 +64,7 @@ class _StartFormFormState extends State<StartForm> {
             child: ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    // context.goNamed(RouteName.base);
+                    BlocProvider.of<UiCubit>(context).updateWork(Work.process);
                   }
                 },
                 child: Text('Начать рабочий день')),

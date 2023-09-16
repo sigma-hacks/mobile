@@ -8,7 +8,7 @@ import '../../ui/pay_screen/pay_page.dart';
 import 'route_name.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: RouteName.pay,
+  initialLocation: RouteName.login,
   routes: <RouteBase>[
     GoRoute(
       name: RouteName.login,

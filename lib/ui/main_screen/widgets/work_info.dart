@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/theme/app_colors.dart';
-import 'start_form.dart';
+import '../../../cubits/ui_cubit.dart';
+import '../../../models/work.dart';
 
 class WorkInfo extends StatelessWidget {
   const WorkInfo({
@@ -14,12 +16,12 @@ class WorkInfo extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text('Смена начата'),
-        Divider(
-          color: AppColors.blueLight,
-        ),
+        const Divider(color: AppColors.blueLight),
         const SizedBox(height: 20),
         OutlinedButton(
-          onPressed: () {},
+          onPressed: () {
+            BlocProvider.of<UiCubit>(context).updateWork(Work.stop);
+          },
           child: Text('Завершить смену'),
         ),
         const SizedBox(height: 20),
