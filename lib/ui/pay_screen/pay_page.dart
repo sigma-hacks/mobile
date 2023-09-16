@@ -47,10 +47,12 @@ class PayPage extends StatelessWidget {
                       child: Expanded(
                         child: Column(
                           children: [
-                            Text('Найден участник'),
-                            SizedBox(height: 10),
-                            Divider(color: AppColors.blue),
-                            SizedBox(height: 20),
+                            Text(
+                              'Найден участник',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const Divider(color: AppColors.blueLight),
+                            SizedBox(height: 12),
                             PassengerCard(
                               passenger: passenger!,
                             ),

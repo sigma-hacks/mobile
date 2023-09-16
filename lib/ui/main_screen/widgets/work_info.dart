@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/theme/app_colors.dart';
 import '../../../cubits/ui_cubit.dart';
 import '../../../models/work.dart';
+import '../../common/out_button.dart';
 
 class WorkInfo extends StatelessWidget {
   const WorkInfo({
@@ -15,18 +16,28 @@ class WorkInfo extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Смена начата'),
+        Text(
+          'Смена #999',
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
         const Divider(color: AppColors.blueLight),
         const SizedBox(height: 20),
-        OutlinedButton(
-          onPressed: () {
+        OutButton(
+          contentColor: AppColors.blue,
+          fillColor: AppColors.white,
+          text: 'Завершить смену',
+          onTap: () {
             BlocProvider.of<UiCubit>(context).updateWork(Work.stop);
           },
-          child: Text('Завершить смену'),
         ),
         const SizedBox(height: 20),
         CircleAvatar(
+          backgroundColor: AppColors.blueLighter,
           radius: 50,
+          child: Image.asset(
+            'assets/icons/avatar.png',
+            width: 65,
+          ),
         ),
         const SizedBox(height: 12),
         Text('ФИО'),

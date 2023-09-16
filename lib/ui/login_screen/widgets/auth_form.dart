@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../common/navigation/route_name.dart';
+import '../../../common/theme/app_colors.dart';
+import '../../common/out_button.dart';
 
 class AuthForm extends StatefulWidget {
   const AuthForm({super.key});
@@ -60,16 +62,26 @@ class _AuthFormState extends State<AuthForm> {
             },
           ),
           const SizedBox(height: 32),
-          Center(
-            child: OutlinedButton(
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  context.goNamed(RouteName.base);
-                }
-              },
-              child: const Text('Войти'),
-            ),
+          OutButton(
+            contentColor: AppColors.blue,
+            fillColor: AppColors.white,
+            text: 'Войти',
+            onTap: () {
+              if (formKey.currentState!.validate()) {
+                context.goNamed(RouteName.base);
+              }
+            },
           ),
+          // Center(
+          //   child: OutlinedButton(
+          //     onPressed: () {
+          // if (formKey.currentState!.validate()) {
+          //   context.goNamed(RouteName.base);
+          // }
+          //     },
+          //     child: const Text('Войти'),
+          //   ),
+          // ),
         ],
       ),
     );

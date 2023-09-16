@@ -13,7 +13,10 @@ class BeginWork extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Начало смены'),
+        Text(
+          'Начало смены',
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
         Divider(
           color: AppColors.blueLight,
         ),
