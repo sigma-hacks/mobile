@@ -1,11 +1,12 @@
-import 'package:ekzh/data/mok.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../data/mok.dart';
 import '../../ui/base_screen/base_page.dart';
 import '../../ui/check_screen/check_page.dart';
 import '../../ui/login_screen/login_page.dart';
 import '../../ui/pay_screen/pay_page.dart';
+import '../../ui/qr_screen/qr_page.dart';
 import 'route_name.dart';
 
 final GoRouter router = GoRouter(
@@ -37,6 +38,13 @@ final GoRouter router = GoRouter(
       path: RouteName.check,
       builder: (BuildContext context, GoRouterState state) {
         return const CheckPage();
+      },
+    ),
+    GoRoute(
+      name: RouteName.qr,
+      path: '${RouteName.check}/${RouteName.qr}',
+      builder: (BuildContext context, GoRouterState state) {
+        return const QrPage();
       },
     ),
   ],

@@ -16,6 +16,7 @@ dependencies:
   flutter_bloc:
   freezed_annotation:
   encrypt: ^5.0.2
+  qr_code_scanner:
 
 dev_dependencies:
   flutter_test:

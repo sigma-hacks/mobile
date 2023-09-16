@@ -15,7 +15,7 @@ class QRButton extends StatelessWidget {
     return InkWell(
       radius: 32,
       onTap: () {
-        context.pushNamed(RouteName.pay);
+        context.pushNamed(RouteName.qr);
       },
       child: Container(
         padding: const EdgeInsets.all(20),
