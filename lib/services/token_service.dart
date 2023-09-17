@@ -5,8 +5,6 @@ import 'package:ekzh/services/secure_storage_service.dart';
 
 class TokenService {
 
-  // String? get token => getToken();
-
   static final TokenService _instance = TokenService._internal();
 
   factory TokenService() {
