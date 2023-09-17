@@ -6,6 +6,7 @@ import 'package:hive/hive.dart';
 part 'register.freezed.dart';
 part 'register.g.dart';
 
+// https://stackoverflow.com/questions/60383178/combine-freezed-hive
 @Freezed()
 @JsonSerializable()
 class Register with _$Register {
