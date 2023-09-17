@@ -11,5 +11,6 @@ class AppState with _$AppState {
     @Default(AppTabs.main) AppTabs currentTab,
     @Default(Work.stop) Work currentWork,
     @Default(true) bool isConnection,
+    @Default(false) bool isAuthorized,
   }) = _AppState;
 }
