@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../cubits/geo_cubit.dart';
 import '../../../cubits/ui_cubit.dart';
 import '../../../models/app_tabs.dart';
 import '../../../models/work.dart';
@@ -64,8 +65,10 @@ class _StartFormFormState extends State<StartForm> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (formKey.currentState!.validate()) {
+                    // await BlocProvider.of<GeoCubit>(context)
+                    // .getCurrentLocation();
                     BlocProvider.of<UiCubit>(context).updateTab(AppTabs.main);
                     BlocProvider.of<UiCubit>(context).updateWork(Work.process);
                   }
