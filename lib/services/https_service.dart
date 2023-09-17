@@ -52,7 +52,7 @@ class HttpsService {
         if (response.statusCode == 200) {
           var value = AuthResponse.fromJson(jsonDecode(response.body));
           final token = value.data.token;
-          _tokenService.saveToken(token);
+          await _tokenService.saveToken(token);
           return token;
         } else {
           throw Exception("Failed to logIn");

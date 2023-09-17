@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ekzh/services/https_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
@@ -29,5 +30,18 @@ class UiCubit extends Cubit<AppState> {
         emit(state.copyWith(isConnection: false));
       }
     });
+  }
+
+  Future tryAuth(String login,String password) async {
+    try {
+      final result = await HttpsService().auth(
+        email: login, 
+        pass: password, 
+        type: AuthType.password);
+        emit(state.copyWith(isAuthorized: true));
+        return result;
+    } catch (e) {
+      emit(state.copyWith(isAuthorized: false));
+    }
   }
 }

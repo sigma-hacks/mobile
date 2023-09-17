@@ -35,7 +35,8 @@ class TokenService {
     } else if (value == _token) {
       return Future.sync(() => null);
     } else {
-      return _service.saveKey(value);
+      _token = value;
+      return _service.saveToken(value);
     }
   }
 

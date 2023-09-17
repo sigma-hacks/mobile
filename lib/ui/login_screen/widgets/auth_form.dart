@@ -71,10 +71,15 @@ class _AuthFormState extends State<AuthForm> {
             fillColor: AppColors.white,
             text: 'Войти',
             onTap: () {
-              if (formKey.currentState!.validate()) {
-                BlocProvider.of<UiCubit>(context).updateTab(AppTabs.work);
-                context.goNamed(RouteName.base);
-              }
+              final future = BlocProvider.of<UiCubit>(context).tryAuth(
+                loginController.text, 
+                passwordController.text);
+              future.then((result) {
+                if (formKey.currentState!.validate()) {
+                  BlocProvider.of<UiCubit>(context).updateTab(AppTabs.work);
+                  context.goNamed(RouteName.base);
+                }
+              });
             },
           ),
         ],
