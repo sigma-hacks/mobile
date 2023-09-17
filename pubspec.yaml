@@ -27,6 +27,9 @@ dependencies:
   retry: ^3.1.2
   geolocator:
   json_annotation: ^4.8.1
+  nfc_manager:
+  # nfc_classic_mifare:
+  #   path: D:\Soft\ITMO\MARIYA\Flutter\nfc_classic_mifare-main
 
 dev_dependencies:
   flutter_test:

@@ -1,8 +1,12 @@
 import 'package:ekzh/models/app_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nfc_manager/nfc_manager.dart';
+import '../../common/navigation/route_name.dart';
 import '../../common/theme/app_colors.dart';
 import '../../cubits/ui_cubit.dart';
+import '../../main.dart';
 import '../../models/state/app_state.dart';
 import '../../models/work.dart';
 import '../main_screen/main_page.dart';
@@ -28,6 +32,11 @@ class BasePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
+    //   result.value = tag.data;
+    //   context.pushNamed(RouteName.passenger);
+    //   // NfcManager.instance.stopSession();
+    // });
     return BlocBuilder<UiCubit, AppState>(
       builder: (context, state) {
         int currentIndex = AppTabs.values.indexOf(state.currentTab);
