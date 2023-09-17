@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../common/navigation/router.dart';
 import '../common/theme/light_theme.dart';
 import '../cubits/ui_cubit.dart';
+import '../services/reachability_service.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -13,7 +14,7 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<UiCubit>(
-          create: (_) => UiCubit(),
+          create: (_) => UiCubit(ReachabilityService())..listenToConnectivity(),
         ),
       ],
       child: MaterialApp.router(

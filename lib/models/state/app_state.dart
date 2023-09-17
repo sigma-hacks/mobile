@@ -10,5 +10,6 @@ class AppState with _$AppState {
   const factory AppState({
     @Default(AppTabs.main) AppTabs currentTab,
     @Default(Work.stop) Work currentWork,
+    @Default(true) bool isConnection,
   }) = _AppState;
 }
