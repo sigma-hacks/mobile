@@ -58,4 +58,10 @@ class HttpsService {
       retryIf: (e) => e is TimeoutException,
     );
   }
-  // MARK: - User  // Future<UserResponse> getUser() async {  //   final token = await TokenService().getToken();  //   if (token == null) {  //     throw Exception("There is no token in the system");  //   }   //   Map<String, String>  headers = {  //     "Content-Type" : "application/json",  //     "Authorization" : "Baerer $token"  //   };  //   final url = Uri.https(_baseUrl, '$_api/auth/register');  //   final response = await _client.get(  //     url,  //     headers: headers,  //   );  //   return await Isolate.run(() {  //     if (response.statusCode == 200) {  //       var value = RegisterResponse.fromJson(jsonDecode(response.body));  //       return value.data.token;  //     } else {  //       throw Exception("Failed to logIn");  //     }  //   });  //   return response;  // }}
+
+  Future<List<String>> getRegistr({required DateTime lastUpdate}) {
+    return Future.delayed(const Duration(seconds: 10), () {
+      return ["12354"];
+    });
+  }
+}
