@@ -1,16 +1,22 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
 
 part 'register.freezed.dart';
 part 'register.g.dart';
 
-@freezed
+@Freezed()
+@JsonSerializable()
 class Register with _$Register {
-  const factory Register ({
-    required String id,
-    required String name,
-  }) = _Register;
-  factory Register.fromJson(Map<String,Object?> json) 
-      => _$RegisterFromJson(json);
 
+    @HiveType(typeId: 30, adapterName: 'RegisterAdapter')
+    const factory Register({
+        @JsonKey(name: 'id')
+        @HiveField(0)
+        required String id,
+        @JsonKey(name: 'name')
+        @HiveField(1)
+        required String name,
+      }) = _Register;
 }
