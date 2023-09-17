@@ -7,7 +7,6 @@ import '../../models/state/app_state.dart';
 import '../../models/work.dart';
 import '../main_screen/main_page.dart';
 import '../work_screen/work_page.dart';
-import '../profile_screen/profile_page.dart';
 import 'widgets/qr_button.dart';
 
 class BottomItem {

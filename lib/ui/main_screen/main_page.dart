@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../cubits/ui_cubit.dart';
+import '../../models/state/app_state.dart';
+import 'widgets/function_off.dart';
+import 'widgets/nfc_instruction.dart';
+import 'widgets/registry_update.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -8,16 +15,31 @@ class MainPage extends StatelessWidget {
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset('assets/images/nfc.png'),
-            Text(
-              'Приложите карту к телефону или отсканируйте QR-код, нажав на кнопку внизу',
-              style: Theme.of(context).textTheme.bodyLarge,
-              textAlign: TextAlign.center,
-            ),
-          ],
+        child: BlocBuilder<UiCubit, AppState>(
+          builder: (context, state) {
+            bool nfc = true;
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    if (!state.isConnection)
+                      const FunctionOff(
+                        text: 'Отсутствует подключение к интернету',
+                      ),
+                    const SizedBox(height: 8),
+                    if (!nfc)
+                      const FunctionOff(
+                        text: 'Выключена функция NFC',
+                      ),
+                    const SizedBox(height: 8),
+                    RegistryUpdate(isConnect: state.isConnection),
+                  ],
+                ),
+                NFCInstruction(isOn: nfc),
+              ],
+            );
+          },
         ),
       ),
     );

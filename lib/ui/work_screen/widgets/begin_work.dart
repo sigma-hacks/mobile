@@ -1,7 +1,4 @@
-import 'package:ekzh/cubits/ui_cubit.dart';
-import 'package:ekzh/models/app_tabs.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../common/navigation/route_name.dart';
@@ -24,12 +21,12 @@ class BeginWork extends StatelessWidget {
             'Начало смены',
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          Divider(
+          const Divider(
             color: AppColors.blueLight,
           ),
           Text('ФИО'),
           const SizedBox(height: 16),
-          StartForm(),
+          const StartForm(),
           const SizedBox(height: 20),
           TextButton(
             onPressed: () {
