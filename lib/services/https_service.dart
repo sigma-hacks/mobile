@@ -40,10 +40,6 @@ class HttpsService {
     final body = json.encode(request);
     return retry(
       () async {
-        final isReachable = await ReachabilityService().isNetworkAvailable;
-        if (!isReachable) {
-          throw TimeoutException("custom");
-        }
         final response = await _client.post( 
           url, 
           headers: headers, 
