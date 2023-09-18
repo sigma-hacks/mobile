@@ -1,4 +1,6 @@
+import 'package:ekzh/common/navigation/route_name.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../common/theme/app_colors.dart';
 import '../common/logo_text.dart';
 import '../common/wrapper.dart';
@@ -35,6 +37,12 @@ class LoginPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 32),
                   const AuthForm(),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.pushNamed(RouteName.pin);
+                    },
+                    child: Text('ПИН'),
+                  ),
                 ],
               ),
             ),

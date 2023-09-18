@@ -34,6 +34,11 @@ TextTheme _textLight(TextTheme base) {
       height: 19.2 / 16,
       // fontFamily: 'SF',
     ),
+    headlineLarge: base.headlineLarge!.copyWith(
+      fontSize: 36,
+      // fontFamily: 'SF',
+      color: AppColors.blue,
+    ),
     labelLarge: base.labelLarge!.copyWith(
       fontSize: 16,
       fontWeight: FontWeight.w500,
