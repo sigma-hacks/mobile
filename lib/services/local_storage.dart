@@ -1,11 +1,12 @@
 import 'package:ekzh/services/entities/card.dart';
+import 'package:ekzh/services/entities/pending_request.dart';
 import 'package:ekzh/services/entities/tariff.dart';
 import 'package:ekzh/services/https_service.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
-class LocalStorage {
+// class LocalStorage {
 
   Future<CardRepository> initialiseHive() async {
     //key
@@ -13,6 +14,7 @@ class LocalStorage {
     //adapters
     Hive.registerAdapter(CardAdapter());
     Hive.registerAdapter(TariffAdapter());
+    
     //box
     final cardsBox = await Hive.openLazyBox<Card?>(cardKey);
     //repos
@@ -20,7 +22,7 @@ class LocalStorage {
     return CardRepository(cardBox: cardsBox);
   }
 
-}
+// }
 
 
 class CardRepository {

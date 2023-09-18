@@ -29,6 +29,7 @@ dependencies:
   json_annotation: ^4.8.1
   nfc_manager:
   path_provider: ^2.1.1
+  uuid: ^4.0.0
   # nfc_classic_mifare:
   #   path: D:\Soft\ITMO\MARIYA\Flutter\nfc_classic_mifare-main
 

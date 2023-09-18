@@ -7,6 +7,7 @@ class SecureStorageService {
 
   final String _key = "EncryptionKey";
   final String _tokenKey = "TokenKey";
+  final String _finalDateTime = "LastUpdated";
 // Create storage
   final FlutterSecureStorage storage = FlutterSecureStorage(aOptions: AndroidOptions(encryptedSharedPreferences: true));
 
@@ -61,6 +62,20 @@ class SecureStorageService {
 
   Future<void> removeToken() async {
     return await storage.delete(key: _tokenKey);
+  }
+
+  // Mark:- Register Update DateTime
+  Future<void> saveLastupdateDateTime( DateTime value) async {
+    final string = value.toUtc().toString();
+    return await storage.write(key: _finalDateTime, value: string);
+  }
+
+  Future<String?> getLastupdateDateTime() async {
+    return await storage.read(key: _finalDateTime);
+  }
+
+  Future<void> removeLastupdateDateTime() async {
+    return await storage.delete(key: _finalDateTime);
   }
 
 }
