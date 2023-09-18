@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../common/navigation/router.dart';
 import '../common/theme/light_theme.dart';
 import '../cubits/geo_cubit.dart';
+import '../cubits/pin_auth_cubit.dart';
 import '../cubits/ui_cubit.dart';
 import '../services/geo_service.dart';
 import '../services/reachability_service.dart';
@@ -20,6 +21,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<GeoCubit>(
           create: (_) => GeoCubit(GeoService()),
+        ),
+        BlocProvider<PinAuthCubit>(
+          create: (_) => PinAuthCubit(),
         ),
       ],
       child: MaterialApp.router(
