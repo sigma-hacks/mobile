@@ -1,14 +1,8 @@
-import 'package:ekzh/common/navigation/route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:nfc_manager/nfc_manager.dart';
-import '../../../cubits/geo_cubit.dart';
 import '../../../cubits/ui_cubit.dart';
 import '../../../models/app_tabs.dart';
 import '../../../models/work.dart';
-
-import '../../../main.dart';
 
 class StartForm extends StatefulWidget {
   const StartForm({super.key});
@@ -72,14 +66,6 @@ class _StartFormFormState extends State<StartForm> {
             child: ElevatedButton(
                 onPressed: () async {
                   if (formKey.currentState!.validate()) {
-                    // await BlocProvider.of<GeoCubit>(context)
-                    // .getCurrentLocation();
-                    // NfcManager.instance.startSession(
-                    //     onDiscovered: (NfcTag tag) async {
-                    //   result.value = tag.data;
-                    //   context.pushNamed(RouteName.passenger);
-                    //   // NfcManager.instance.stopSession();
-                    // });
                     BlocProvider.of<UiCubit>(context).updateTab(AppTabs.main);
                     BlocProvider.of<UiCubit>(context).updateWork(Work.process);
                   }

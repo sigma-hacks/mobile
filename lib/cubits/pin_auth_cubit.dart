@@ -1,10 +1,12 @@
 import 'dart:developer';
 
+import 'package:ekzh/cubits/ui_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../common/navigation/route_name.dart';
+import '../models/app_tabs.dart';
 import '../models/pin_auth_status.dart';
 import '../models/state/pin_auth_state.dart';
 
@@ -16,11 +18,10 @@ class PinAuthCubit extends Cubit<PinAuthState> {
   void addNum(int num, BuildContext context) async {
     String pin = state.pin + num.toString();
     if (pin.length < 4) {
-      log('ПИШИ ЕЩЁ');
       emit(PinAuthState(pin: pin, pinStatus: PinAuthStatus.process));
     } else if (pin == curPin) {
-      log('ВСЁ СУПЕР');
       emit(PinAuthState(pin: pin, pinStatus: PinAuthStatus.success));
+      BlocProvider.of<UiCubit>(context).updateTab(AppTabs.work);
       context.goNamed(RouteName.base);
     } else {
       log('НЕВЕРНЫЙ ПИН');
@@ -34,7 +35,10 @@ class PinAuthCubit extends Cubit<PinAuthState> {
   }
 
   void removeNum() {
-    String pin = state.pin.substring(0, state.pin.length - 1);
+    String pin = state.pin;
+    if (pin.isNotEmpty) {
+      pin = state.pin.substring(0, state.pin.length - 1);
+    }
     emit(PinAuthState(pin: pin, pinStatus: PinAuthStatus.process));
   }
 }

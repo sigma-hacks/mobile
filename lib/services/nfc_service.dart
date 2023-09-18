@@ -3,6 +3,24 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 
+class NfsService {
+  Map<String, dynamic> _data = {};
+
+  Map<String, dynamic> get data => _data;
+
+  Future<bool> get isOn async => await NfcManager.instance.isAvailable();
+
+  void startListen() {
+    NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
+      _data = tag.data;
+    });
+  }
+
+  void stopListen() {
+    NfcManager.instance.stopSession();
+  }
+}
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());

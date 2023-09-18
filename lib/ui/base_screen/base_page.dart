@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ekzh/models/app_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +8,6 @@ import 'package:nfc_manager/nfc_manager.dart';
 import '../../common/navigation/route_name.dart';
 import '../../common/theme/app_colors.dart';
 import '../../cubits/ui_cubit.dart';
-import '../../main.dart';
 import '../../models/state/app_state.dart';
 import '../../models/work.dart';
 import '../main_screen/main_page.dart';
@@ -22,21 +23,32 @@ class BottomItem {
   });
 }
 
-class BasePage extends StatelessWidget {
+class BasePage extends StatefulWidget {
   const BasePage({super.key});
 
+  @override
+  State<BasePage> createState() => _BasePageState();
+}
+
+class _BasePageState extends State<BasePage> {
   final _bottomItems = const [
     BottomItem(icon: Icons.home, label: 'Главная'),
     BottomItem(icon: Icons.work_history_rounded, label: 'Смена'),
   ];
 
   @override
+  void initState() {
+    super.initState();
+    NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
+      log(tag.data.toString());
+      if (BlocProvider.of<UiCubit>(context).state.currentWork == Work.process) {
+        context.goNamed(RouteName.passenger);
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
-    //   result.value = tag.data;
-    //   context.pushNamed(RouteName.passenger);
-    //   // NfcManager.instance.stopSession();
-    // });
     return BlocBuilder<UiCubit, AppState>(
       builder: (context, state) {
         int currentIndex = AppTabs.values.indexOf(state.currentTab);

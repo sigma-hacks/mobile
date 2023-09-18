@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nfc_manager/nfc_manager.dart';
 
 import '../../../common/theme/app_colors.dart';
 import '../../../cubits/ui_cubit.dart';
-import '../../../main.dart';
 import '../../../models/work.dart';
 import 'date_time_work.dart';
 import '../../common/out_button.dart';
@@ -27,8 +25,6 @@ class ShiftBlock extends StatelessWidget {
           fillColor: AppColors.white,
           text: 'Завершить смену',
           onTap: () {
-            NfcManager.instance.stopSession();
-            controller.close();
             BlocProvider.of<UiCubit>(context).updateWork(Work.stop);
           },
         ),

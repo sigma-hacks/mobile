@@ -1,11 +1,6 @@
-import 'package:ekzh/common/navigation/route_name.dart';
 import 'package:ekzh/cubits/ui_cubit.dart';
-import 'package:ekzh/ui/common/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../../common/theme/app_colors.dart';
 import '../../../models/state/app_state.dart';
 import '../../../models/work.dart';
 import 'begin_route.dart';
@@ -29,10 +24,10 @@ class WorkInfo extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    ShiftBlock(),
+                    const ShiftBlock(),
                     const SizedBox(height: 20),
                     state.currentWork == Work.paused
-                        ? BeginRoute()
+                        ? const BeginRoute()
                         : const RouteBlock(),
                   ],
                 );
