@@ -10,9 +10,6 @@ part 'register.g.dart';
 @Freezed()
 class Register with _$Register {
 
-  // const Register({
-  // });
-
     @HiveType(typeId: 30, adapterName: 'RegisterAdapter')
     const factory Register({
         // @JsonKey(name: 'hash')

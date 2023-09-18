@@ -63,7 +63,7 @@ class HttpsService {
     );
   }
 
-  Future getRegistr({required DateTime lastUpdate}) async {
+  Future<RegisterEntities> getRegistr({required DateTime lastUpdate}) async {
 
     // final token = await _tokenService.getToken();
     // if (token == null) {
