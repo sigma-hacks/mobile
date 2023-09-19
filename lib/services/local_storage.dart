@@ -20,7 +20,6 @@ Future<CardRepository> initialiseHive() async {
   //box
   final cardsBox = await Hive.openLazyBox<Card?>(cardKey);
   //repos
-  print(cardsBox.path);
   return CardRepository(cardBox: cardsBox);
 }
 
@@ -51,6 +50,10 @@ class CardRepository {
     for (final card in cards) {
       await _cardBox.put(card.cardNumber.hashCode, card);
     }
+  }
+
+  Future<Card?> getCardByNumber(int cardNumber) async {
+    return await _cardBox.get(cardNumber.hashCode);
   }
 
   Future fetchAllLocalCards() async {
