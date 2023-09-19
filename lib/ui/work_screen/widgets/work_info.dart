@@ -1,4 +1,4 @@
-import 'package:ekzh/cubits/ui_cubit.dart';
+import 'package:ekzh/cubits/app_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/state/app_state.dart';
@@ -19,7 +19,7 @@ class WorkInfo extends StatelessWidget {
         SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
-            child: BlocBuilder<UiCubit, AppState>(
+            child: BlocBuilder<AppCubit, AppState>(
               builder: (context, state) {
                 return Column(
                   mainAxisSize: MainAxisSize.min,

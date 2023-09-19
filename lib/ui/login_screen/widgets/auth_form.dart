@@ -1,10 +1,11 @@
+import 'package:ekzh/services/card_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../common/navigation/route_name.dart';
 import '../../../common/theme/app_colors.dart';
-import '../../../cubits/ui_cubit.dart';
+import '../../../cubits/app_cubit.dart';
 import '../../../models/app_tabs.dart';
 import '../../common/out_button.dart';
 
@@ -19,8 +20,15 @@ class _AuthFormState extends State<AuthForm> {
   late TextEditingController loginController;
   late TextEditingController passwordController;
   late GlobalKey<FormState> formKey;
+
+  Future<void> getCards() async {
+    final postsCubit = context.read<CardCubit>();
+    await postsCubit.getCards();
+  }
+
   @override
   void initState() {
+    getCards();
     super.initState();
     loginController = TextEditingController()..text = 'test@mail.ru';
     passwordController = TextEditingController()..text = '123qwe123';
@@ -36,6 +44,7 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<CardCubit>().state;
     return Form(
       key: formKey,
       child: Column(
@@ -69,14 +78,14 @@ class _AuthFormState extends State<AuthForm> {
           OutButton(
             contentColor: AppColors.blue,
             fillColor: AppColors.white,
-            text: 'Войти',
+            text: state.toString(),
             onTap: () {
-              final future = BlocProvider.of<UiCubit>(context).tryAuth(
-                loginController.text, 
-                passwordController.text);
+              // getCards();
+              final future = BlocProvider.of<AppCubit>(context)
+                  .tryAuth(loginController.text, passwordController.text);
               future.then((result) {
                 if (formKey.currentState!.validate()) {
-                  BlocProvider.of<UiCubit>(context).updateTab(AppTabs.work);
+                  BlocProvider.of<AppCubit>(context).updateTab(AppTabs.work);
                   context.goNamed(RouteName.base);
                 }
               });

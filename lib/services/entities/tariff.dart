@@ -18,9 +18,9 @@ class Tariff with _$Tariff {
         @JsonKey(name: 'amount')
         @HiveField(1)
         required int amount,
-        @JsonKey(name: 'is_active')
+        @JsonKey(name: 'id')
         @HiveField(2)
-        required bool isActive,
+        required int id,
       }) = _Tariff;
 
     factory Tariff.fromJson(Map<String, dynamic> json) => _$TariffFromJson(json);

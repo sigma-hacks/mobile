@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 
 import '../../../common/theme/app_colors.dart';
-import '../../../cubits/ui_cubit.dart';
+import '../../../cubits/app_cubit.dart';
 import '../../../models/work.dart';
 import 'date_time_work.dart';
 import '../../common/out_button.dart';
@@ -29,7 +29,7 @@ class RouteBlock extends StatelessWidget {
           text: 'Завершить рейс',
           onTap: () {
             NfcManager.instance.stopSession();
-            BlocProvider.of<UiCubit>(context).updateWork(Work.paused);
+            BlocProvider.of<AppCubit>(context).stopRoute();
           },
         ),
         const SizedBox(height: 10),

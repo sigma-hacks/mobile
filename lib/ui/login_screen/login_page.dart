@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import '../../common/theme/app_colors.dart';
-import '../../cubits/ui_cubit.dart';
+import '../../cubits/app_cubit.dart';
 import '../common/logo_text.dart';
 import '../common/wrapper.dart';
 import 'widgets/auth_form.dart';
@@ -24,7 +24,8 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
       log(tag.data.toString());
-      if (!BlocProvider.of<UiCubit>(context).state.isAuthorized) {
+      if (!BlocProvider.of<AppCubit>(context).state.isAuthorized) {
+        NfcManager.instance.stopSession();
         context.goNamed(RouteName.pin);
       }
     });

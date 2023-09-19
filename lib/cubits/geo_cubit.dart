@@ -74,7 +74,9 @@ class GeoCubit extends Cubit<GeoState> {
   // }
 
   Future<void> getCurrentLocation() async {
+    log('Начали получать ГЕО');
     final loc = await _locationService.getGeo();
+    log('Получили ГЕО');
     Location location =
         Location(latitude: loc.latitude, longitude: loc.longitude);
     log('Позиция: ${location.latitude}, ${location.longitude}');

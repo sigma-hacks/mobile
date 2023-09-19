@@ -3,10 +3,11 @@ import 'package:intl/intl.dart';
 
 import '../../common/theme/app_colors.dart';
 import '../../models/passenger.dart';
+import '../../services/entities/card_ekzh.dart';
 import 'wrapper.dart';
 
 class PassengerCard extends StatelessWidget {
-  final Passenger passenger;
+  final CardEkzh passenger;
   const PassengerCard({super.key, required this.passenger});
 
   @override
@@ -22,11 +23,12 @@ class PassengerCard extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              '${DateTime.now().difference(passenger.bday).inDays ~/ 365} лет',
+              '${DateTime.now().difference(DateTime.fromMicrosecondsSinceEpoch(passenger.birthdate)).inDays ~/ 365} лет',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             Text(
-              DateFormat('dd.MM.yyyy').format(passenger.bday),
+              DateFormat('dd.MM.yyyy').format(
+                  DateTime.fromMicrosecondsSinceEpoch(passenger.birthdate)),
               style: Theme.of(context).textTheme.bodySmall,
             ),
             const SizedBox(height: 18),
@@ -36,9 +38,9 @@ class PassengerCard extends StatelessWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 18),
-            Text(passenger.cardNumber),
+            Text(passenger.cardNumber.toString()),
             Text(
-              'до 01.01.2026',
+              'до ${DateFormat('dd.MM.yyyy').format(DateTime.fromMicrosecondsSinceEpoch(passenger.expirationDate))}',
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
