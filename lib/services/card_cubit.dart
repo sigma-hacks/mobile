@@ -26,18 +26,13 @@ class CardCubit extends Cubit<CardState> {
         final serverResponse = await _cardRepository.getCards();
 
         await _cardRepository.saveCardsLocally(cards: serverResponse);
-        // final localCards = await _cardRepository.fetchAllLocalCards();
 
-        // final content = serverResponse.toString();
-
-        // await writeCounter(content);
-        // await readCounter();
-
-        emit(CardLoaded(response: []));
+        emit(CardLoaded(response: serverResponse));
       } else {
         final localCards = await _cardRepository.fetchAllLocalCards();
         log(localCards.length);
         emit(CardLoaded(response: []));
+        emit(CardLoaded(response: localCards));
       }
     } catch (e) {
       emit(CardError(error: e.toString()));
