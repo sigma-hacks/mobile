@@ -69,14 +69,13 @@ class HttpsService {
   }
 
   Future<RegisterEntities> getRegistr({required DateTime? lastUpdate}) async {
-    final token = await _tokenService.getToken();
-    if (token == null) {
-      throw Exception("There is no token");
-    }
+    // final token = await _tokenService.getToken();
+    // if (token == null) {
+    //   throw Exception("There is no token");
+    // }
 
     Map<String, String> headers = {
       "Content-Type": "application/json",
-      "Authorization": "Bearer $token",
     };
 
     Map<String, String>? query;
