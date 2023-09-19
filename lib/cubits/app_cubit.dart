@@ -25,6 +25,10 @@ class AppCubit extends Cubit<AppState> {
     emit(state.copyWith(currentWork: newWork));
   }
 
+  void logout() {
+    emit(state.copyWith(isAuthorized: false));
+  }
+
   Future<void> listenToConnectivity() async {
     interbetRepo.onStatusChange.listen((result) {
       if (result == InternetStatus.connected) {

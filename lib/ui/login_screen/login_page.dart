@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Для входа в личный кабинет выберите полномочие и авторизуйтесь',
+                    'Для входа в личный кабинет приложите карту или авторизуйтесь по логину',
                     style: Theme.of(context).textTheme.bodySmall,
                     textAlign: TextAlign.center,
                   ),

@@ -78,9 +78,8 @@ class _AuthFormState extends State<AuthForm> {
           OutButton(
             contentColor: AppColors.blue,
             fillColor: AppColors.white,
-            text: state.toString(),
+            text: 'Войти',
             onTap: () {
-              // getCards();
               final future = BlocProvider.of<AppCubit>(context)
                   .tryAuth(loginController.text, passwordController.text);
               future.then((result) {

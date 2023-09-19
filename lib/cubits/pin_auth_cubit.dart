@@ -21,7 +21,7 @@ class PinAuthCubit extends Cubit<PinAuthState> {
     if (pin.length < 4) {
       emit(PinAuthState(pin: pin, pinStatus: PinAuthStatus.process));
     } else if (pin == curPin) {
-      emit(PinAuthState(pin: pin, pinStatus: PinAuthStatus.success));
+      emit(const PinAuthState(pin: '', pinStatus: PinAuthStatus.success));
       BlocProvider.of<AppCubit>(context).updateTab(AppTabs.work);
 
       context.goNamed(RouteName.base);

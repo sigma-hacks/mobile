@@ -35,67 +35,6 @@ class WorkInfo extends StatelessWidget {
             ),
           ),
         ),
-        // DraggableScrollableSheet(
-        //   initialChildSize: 0.3,
-        //   maxChildSize: 0.75,
-        //   builder: (BuildContext context, ScrollController scrollController) {
-        //     return Stack(
-        //       children: [
-        //         Container(
-        //           decoration: BoxDecoration(
-        //               borderRadius:
-        //                   BorderRadius.vertical(top: Radius.circular(20)),
-        //               color: AppColors.white.withOpacity(0.95),
-        //               boxShadow: [
-        //                 BoxShadow(
-        //                   color: AppColors.greyDark,
-        //                   blurRadius: 5,
-        //                 )
-        //               ]),
-        //           padding: EdgeInsets.only(top: 50, left: 20, right: 20),
-        //           child: ListView.builder(
-        //             controller: scrollController,
-        //             itemCount: 50,
-        //             itemBuilder: (BuildContext context, int index) {
-        //               return ListTile(
-        //                 onTap: () {
-        //                   context.pushNamed(RouteName.check);
-        //                 },
-        //                 leading: CircleAvatar(
-        //                   radius: 20,
-        //                   backgroundColor: AppColors.blueLighter,
-        //                 ),
-        //                 title: Text('ФИО'),
-        //                 subtitle: Text('20.03.2023 в 14:52'),
-        //                 trailing: Text(
-        //                   '32 ₽',
-        //                   style: Theme.of(context).textTheme.titleSmall,
-        //                 ),
-        //               );
-        //             },
-        //           ),
-        //         ),
-        //         Align(
-        //           alignment: Alignment.topCenter,
-        //           child: Column(
-        //             children: [
-        //               const SizedBox(height: 8),
-        //               Text(
-        //                 'История оплат',
-        //                 style: Theme.of(context).textTheme.titleMedium,
-        //               ),
-        //               const Divider(
-        //                 color: AppColors.blueLight,
-        //                 indent: 20,
-        //                 endIndent: 20,
-        //               ),
-        //             ],
-        //           ),
-        //         ),
-        //       ],
-        //     );
-        //   },
-        // )
       ],
     );
   }

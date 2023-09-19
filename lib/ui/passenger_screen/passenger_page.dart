@@ -56,7 +56,7 @@ class PassengerPage extends StatelessWidget {
                               onPressed: () {
                                 context.goNamed(RouteName.base);
                               },
-                              child: Text('Информация верна'),
+                              child: const Text('Информация верна'),
                             ),
                           ),
                           const SizedBox(height: 12),
@@ -65,7 +65,11 @@ class PassengerPage extends StatelessWidget {
                               contentColor: AppColors.error,
                               fillColor: AppColors.white,
                               text: 'Сообщить о нарушении',
-                              onTap: () {}),
+                              onTap: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text('Функция в разработке')));
+                              }),
                         ],
                       ),
                     );
