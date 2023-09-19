@@ -19,6 +19,7 @@ void main() async {
   final cardRepo = await initialiseHive();
 
   await Repository().initialize();
+  Repository().cardRepository = cardRepo;
 
   runApp(App(cardRepository: cardRepo));
 }

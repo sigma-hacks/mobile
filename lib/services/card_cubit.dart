@@ -42,35 +42,4 @@ class CardCubit extends Cubit<CardState> {
     }
   }
 
-  Future<String> get _localPath async {
-    final directory = await getApplicationCacheDirectory();
-
-    return directory.path;
-  }
-
-  Future<File> get _localFile async {
-    final path = await _localPath;
-    return File('$path/text.txt');
-  }
-
-  Future<File> writeCounter(String string) async {
-    final file = await _localFile;
-
-    // Write the file
-    return file.writeAsString(string);
-  }
-
-  Future<String> readCounter() async {
-    try {
-      final file = await _localFile;
-
-      // Read the file
-      final contents = await file.readAsString();
-
-      return contents;
-    } catch (e) {
-      // If encountering an error, return 0
-      return "";
-    }
-  }
 }

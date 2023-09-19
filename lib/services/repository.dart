@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:ekzh/services/entities/card_ekzh.dart';
 import 'package:ekzh/services/entities/pending_request.dart';
 import 'package:ekzh/services/https_service.dart';
+import 'package:ekzh/services/local_storage.dart';
 import 'package:ekzh/services/secure_storage_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -30,11 +33,7 @@ class Repository {
 
   final _httpService = HttpsService();
   final _secureStorage = SecureStorageService();
-
-
-  Future updateRegister() async {
-    return _httpService.getRegistr(lastUpdate: DateTime.now());
-  }
+  late CardRepository cardRepository;
 
   void startGettingRegistr() {
     _timer = Timer.periodic(const Duration(seconds: 300), (timer) async {
@@ -44,9 +43,11 @@ class Repository {
           return;
         }
         
-        final list = await _httpService.getRegistr(lastUpdate: DateTime.parse(lastUpdateTime));
-        // const entity = RegistrEntity(id: "123", name: "1234");
-        // update register
+        final response = await _httpService.getRegistr(lastUpdate: DateTime.parse(lastUpdateTime));
+        final cards = response.registers
+          .map(((e) => CardEkzh.fromRegister(e, response.names, response.tariffs)))
+          .toList();
+        cardRepository.saveCardsLocally(cards: cards);
       } catch (e) {
         print(e.toString());
       }

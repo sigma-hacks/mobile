@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:ekzh/services/entities/pending_request.dart';
 import 'package:ekzh/services/entities/tariff.dart';
 import 'package:ekzh/services/https_service.dart';
+import 'package:ekzh/services/secure_storage_service.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -34,10 +35,18 @@ class CardRepository {
   final LazyBox<CardEkzh?> _cardBox;
 
   Future<List<CardEkzh>> getCards() async {
+    log("получаем последнее время обновления");
+    DateTime lastUpdate;
+    final gettedTime = await SecureStorageService().getLastupdateDateTime();
+    if (gettedTime == null) {
+      lastUpdate = DateTime.now();
+    }
+    lastUpdate = DateTime.parse(gettedTime!);
     log('Начали грузить карты');
-    final response = await _httpsService.getRegistr(lastUpdate: DateTime.now());
-
+    final response = await _httpsService.getRegistr(lastUpdate: lastUpdate);
     log('Загрузили, количество ${response.registers.length}');
+    await SecureStorageService().saveLastupdateDateTime(response.lastUpdated);
+
     final cards = response.registers
         .map(
             ((e) => CardEkzh.fromRegister(e, response.names, response.tariffs)))
