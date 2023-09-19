@@ -52,7 +52,9 @@ class _RegistryUpdateState extends State<RegistryUpdate> {
         ? _RegistryUpdating()
         : InkWell(
             onTap: () async {
-              await getCards();
+              if (widget.isConnect) {
+                await getCards();
+              }
             },
             child: Ink(
                 child: Row(
