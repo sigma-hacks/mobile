@@ -4,11 +4,11 @@ import 'package:go_router/go_router.dart';
 
 import '../../common/navigation/route_name.dart';
 import '../../common/theme/app_colors.dart';
-import '../../models/passenger.dart';
+import '../../services/entities/card_ekzh.dart';
 import '../common/passenger_card.dart';
 
 class PassengerPage extends StatelessWidget {
-  final Passenger? passenger;
+  final CardEkzh? passenger;
   const PassengerPage({
     super.key,
     this.passenger,
@@ -33,7 +33,7 @@ class PassengerPage extends StatelessWidget {
                   )),
             ),
             passenger == null
-                ? const Center(child: CircularProgressIndicator())
+                ? const Center(child: Text('Карты нет в системе'))
                 : Builder(builder: (context) {
                     return Padding(
                       padding: const EdgeInsets.only(

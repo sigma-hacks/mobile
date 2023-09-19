@@ -10,7 +10,7 @@ class CardLoading extends CardState {}
 class CardLoaded extends CardState {
   CardLoaded({required this.response});
 
-  final List<Card?> response;
+  final List<CardEkzh?> response;
 }
 
 class CardError extends CardState {
