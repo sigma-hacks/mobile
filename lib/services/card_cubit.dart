@@ -31,7 +31,6 @@ class CardCubit extends Cubit<CardState> {
       } else {
         final localCards = await _cardRepository.fetchAllLocalCards();
         log(localCards.length);
-        emit(CardLoaded(response: []));
         emit(CardLoaded(response: localCards));
       }
     } catch (e) {
