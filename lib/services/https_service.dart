@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:ekzh/services/entities/auth_entities.dart';
 import 'package:ekzh/services/entities/pending_request.dart';
 import 'package:ekzh/services/entities/register_entities.dart';
+import 'package:ekzh/services/entities/service_entity.dart';
 import 'package:ekzh/services/repository.dart';
 import 'package:ekzh/services/token_service.dart';
 import 'package:http/http.dart';
@@ -96,9 +97,6 @@ class HttpsService {
         if (response.statusCode == 200) {
           var value =
               RegisterEntities.fromServer(jsonDecode(response.body)['data']);
-          // var value = AuthResponse.fromJson(jsonDecode(response.body));
-          // final token = value.data.token;
-          // _tokenService.saveToken(token);
           log('успех карты');
           return value;
         } else {
@@ -128,10 +126,6 @@ class HttpsService {
           final response =
               await _client.post(url, headers: headers, body: body);
           if (response.statusCode == 200) {
-            // var value = RegisterEntities.fromJson(jsonDecode(response.body));
-            // var value = AuthResponse.fromJson(jsonDecode(response.body));
-            // final token = value.data.token;
-            // _tokenService.saveToken(token);
             var value = jsonDecode(response.body);
             return value;
           } else if (response.statusCode == 409) {
@@ -155,18 +149,6 @@ class HttpsService {
           return await Repository().savePendingRequest(request);
         }
       });
-    // } catch (e) {
-    //   if (e is TimeoutException || e is SocketException) {
-    //     log('не получилось отправить начало смены');
-    //     final request = PendingRequest(
-    //         url: url.toString(),
-    //         body: body,
-    //         headers: json.encode(headers),
-    //         id: const Uuid().v4().toString());
-    //     await Repository().savePendingRequest(request);
-    //     log('сохранили начало смены');
-    //   }
-    // }
   }
 
   Future stopShift() async {
@@ -182,16 +164,11 @@ class HttpsService {
     };
     final body = json.encode(requestedBody);
     final url = Uri.https(_baseUrl, '$_api/shift/stop');
-    // try {
       return retry(
         () async {
           final response =
               await _client.post(url, headers: headers, body: body);
           if (response.statusCode == 200) {
-            // var value = RegisterEntities.fromJson(jsonDecode(response.body));
-            // var value = AuthResponse.fromJson(jsonDecode(response.body));
-            // final token = value.data.token;
-            // _tokenService.saveToken(token);
             var value = jsonDecode(response.body);
             return value;
           } else {
@@ -212,16 +189,6 @@ class HttpsService {
           return await Repository().savePendingRequest(request);
         }
       });    
-    // } catch (e) {
-    //   if (e is TimeoutException || e is SocketException) {
-    //     final request = PendingRequest(
-    //         url: url.toString(),
-    //         body: body,
-    //         headers: json.encode(headers),
-    //         id: const Uuid().v4().toString());
-    //     await Repository().savePendingRequest(request);
-    //   }
-    // }
   }
 
   // MARK: - route
@@ -261,10 +228,6 @@ class HttpsService {
             headers: headers,
             body: body);
           if (response.statusCode == 200) {
-            // var value = RegisterEntities.fromJson(jsonDecode(response.body));
-            // var value = AuthResponse.fromJson(jsonDecode(response.body));
-            // final token = value.data.token;
-            // _tokenService.saveToken(token);
             var value = jsonDecode(response.body);
             log('отправили начало маршрута');
             return value;
@@ -301,7 +264,6 @@ class HttpsService {
     };
     final body = json.encode(request);
     final url = Uri.https(_baseUrl, '$_api/shift/route/stop');
-    // try {
       return retry(
         () async {
           final response = await _client.post(
@@ -310,10 +272,6 @@ class HttpsService {
             body: body,
           );
           if (response.statusCode == 200) {
-            // var value = RegisterEntities.fromJson(jsonDecode(response.body));
-            // var value = AuthResponse.fromJson(jsonDecode(response.body));
-            // final token = value.data.token;
-            // _tokenService.saveToken(token);
             var value = jsonDecode(response.body);
             log('отправили конец маршрута');
             return value;
@@ -335,22 +293,6 @@ class HttpsService {
           return await Repository().savePendingRequest(request);
         }
       });
-
-
-      
-    // } catch (e) {
-    //   if (e is TimeoutException || e is SocketException) {
-    //     log('не получилось отправить конец марштура');
-    //     final request = PendingRequest(
-    //         url: url.toString(),
-    //         body: body,
-    //         headers: json.encode(headers),
-    //         id: const Uuid().v4().toString());
-
-    //     await Repository().savePendingRequest(request);
-    //     log('сохранили конец маршрута');
-    //   }
-    // }
   }
 
   Future cardCheck(int cardNumber) async {
@@ -368,8 +310,7 @@ class HttpsService {
     };
     final body = json.encode(request);
     final url = Uri.https(_baseUrl, '$_api/card/check');
-    try {
-      await retry(
+    return retry(
         () async {
           final response = await _client.post(
             url,
@@ -377,10 +318,6 @@ class HttpsService {
             body: body,
           );
           if (response.statusCode == 200) {
-            // var value = RegisterEntities.fromJson(jsonDecode(response.body));
-            // var value = AuthResponse.fromJson(jsonDecode(response.body));
-            // final token = value.data.token;
-            // _tokenService.saveToken(token);
             var value = jsonDecode(response.body);
             return value;
           } else {
@@ -401,19 +338,35 @@ class HttpsService {
           return await Repository().savePendingRequest(request);
         }
       });
-    } catch (e) {
-      if (e is TimeoutException || e is SocketException) {
-        final request = PendingRequest(
-            url: url.toString(),
-            body: body,
-            headers: json.encode(headers),
-            id: const Uuid().v4().toString());
-        await Repository().savePendingRequest(request);
-      }
-    }
   }
 
-  // MARK: - Discounts
+  // MARK: - Services
+  Future getServices() async {
+    final token = await _tokenService.getToken();
+    if (token == null) {
+      throw Exception("There is no token");
+    }
+    Map<String, String> headers = {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token",
+    };
+    final url = Uri.https(_baseUrl, '$_api/company/services');
+    return retry(
+        () async {
+          final response = await _client.get(
+            url,
+            headers: headers,
+          );
+          if (response.statusCode == 200) {
+            return serviceEntityFromJson(response.body);
+          } else {
+            throw Exception("Failed to logIn");
+          }
+        },
+        maxAttempts: 3,
+        retryIf: (e) => e is TimeoutException,
+      );
+  }
 
   // MARK: - Pending requests
   Future sendPendingRequests(PendingRequest request) async {
@@ -431,11 +384,6 @@ class HttpsService {
           body: body,
         );
         if (response.statusCode == 200) {
-          // var value = RegisterEntities.fromJson(jsonDecode(response.body));
-          // var value = AuthResponse.fromJson(jsonDecode(response.body));
-          // final token = value.data.token;
-          // _tokenService.saveToken(token);
-
           var value = jsonDecode(response.body);
           await Repository().flushPendingRequest(request);
           return value;
