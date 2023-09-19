@@ -13,7 +13,7 @@
 - Для поддержки максимального количества пользователей было использовано [Android API 24](https://apilevels.com)
 
 ### [Ссылка на презентацию](https://docs.google.com/presentation/d/1IrDtMUklqFepwJ_hmCoggagY_f-iQ32RZ7J7B5ueZkI/edit#slide=id.g27f586b40ee_0_0)
-### [Apk file](https://github.com/sigma-hacks/mobile/releases/tag/v2)
+### [Файл для установки](https://github.com/sigma-hacks/mobile/releases/tag/v2)
 
 ## Сборка приложения
 
