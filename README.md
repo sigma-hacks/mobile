@@ -52,10 +52,10 @@ flutter build apk --split-per-abi
 * app-x86_64-release.apk
 
 ## Разработчики
-Пелагейчева Мария | mobile | [Телеграм](https://t.me/MariyaViktorovna)
-Сазонов Артем | mobile | [Телеграм](https://t.me/Drygan) [LinkedIn](https://www.linkedin.com/in/sazonov-artem/)
-Станислав Стрижков | backend | [Телеграм](https://t.me/ctaciv)
-Даурен Камбаров | frontend | [Телеграм](https://t.me/daurensky)
-Сархан Ибрагимов | backend | [Телеграм](https://t.me/Sarkhan080)
+- Пелагейчева Мария | mobile | [Телеграм](https://t.me/MariyaViktorovna)
+- Сазонов Артем | mobile | [Телеграм](https://t.me/Drygan) [LinkedIn](https://www.linkedin.com/in/sazonov-artem/)
+- Станислав Стрижков | backend | [Телеграм](https://t.me/ctaciv)
+- Даурен Камбаров | frontend | [Телеграм](https://t.me/daurensky)
+- Сархан Ибрагимов | backend | [Телеграм](https://t.me/Sarkhan080)
 
 
