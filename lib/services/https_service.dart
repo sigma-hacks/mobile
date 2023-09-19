@@ -66,15 +66,14 @@ class HttpsService {
   }
 
   Future<RegisterEntities> getRegistr({required DateTime lastUpdate}) async {
-
-    // final token = await _tokenService.getToken();
-    // if (token == null) {
-    //   return Exception("There is no token");
-    // }
+    final token = await _tokenService.getToken();
+    if (token == null) {
+      throw Exception("There is no token");
+    }
  
     Map<String, String>  headers = {
       "Content-Type" : "application/json",
-      "Authorization" : "Bearer 9|R49MGxe6kaNiI82lcqBMJXaQ7zd6Nn0HXuySPae603aa9f07",
+      "Authorization" : "Bearer $token",
     };
     final url = Uri.https(_baseUrl, '$_api/cards');
     return retry(
@@ -84,7 +83,7 @@ class HttpsService {
           headers: headers, 
         );
         if (response.statusCode == 200) {
-          var value = RegisterEntities.fromJson(jsonDecode(response.body));
+          var value = RegisterEntities.fromJson(jsonDecode(response.body)['data']);
           // var value = AuthResponse.fromJson(jsonDecode(response.body));
           // final token = value.data.token;
           // _tokenService.saveToken(token);
