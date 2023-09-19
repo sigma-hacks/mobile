@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:ekzh/services/card_cubit.dart';
+import 'package:ekzh/cubits/card_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';

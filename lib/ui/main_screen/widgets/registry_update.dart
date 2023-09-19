@@ -1,8 +1,9 @@
-import 'package:ekzh/services/card_cubit.dart';
+import 'package:ekzh/cubits/card_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/theme/app_colors.dart';
+// import 'package:intl/intl.dart';
 
 class RegistryUpdate extends StatefulWidget {
   final bool isConnect;
@@ -17,13 +18,27 @@ class RegistryUpdate extends StatefulWidget {
 
 class _RegistryUpdateState extends State<RegistryUpdate> {
 
+  DateTime? lastUpdate;
+
   Future<void> getCards() async {
     final postsCubit = context.read<CardCubit>();
     await postsCubit.getCards();
   }
 
   @override
+  void initState() {
+    super.initState();
+    final postsCubit = context.read<CardCubit>();
+    postsCubit.getLastUpdateDateTime().then((value) {
+      setState(() {
+        this.lastUpdate = value;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     return InkWell(
       onTap: () async {
         await getCards();
@@ -42,7 +57,7 @@ class _RegistryUpdateState extends State<RegistryUpdate> {
               Text(
                   widget.isConnect ? 'Обновить реестр' : 'Невозможно обновить реестр'),
               Text(
-                'последнее обновление в 14:09',
+                lastUpdate != null ? 'последнее обновление ${lastUpdate!.day}.${lastUpdate!.month}.${lastUpdate!.year} в ${lastUpdate!.hour}:${lastUpdate!.minute}' : 'Обновлений не было',
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ],
