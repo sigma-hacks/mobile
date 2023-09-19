@@ -14,6 +14,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CryptoService().initialize();
   await Hive.initFlutter();
-  final repository = await LocalStorage().initialiseHive();  
-  runApp(App(cardRepository: repository));
+  // final repository = await LocalStorage().initialiseHive();
+  final cardRepo = await initialiseHive();
+
+  runApp(App(cardRepository: cardRepo));
 }
