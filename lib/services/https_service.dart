@@ -86,7 +86,7 @@ class HttpsService {
         );
         if (response.statusCode == 200) {
           var value =
-              RegisterEntities.fromJson(jsonDecode(response.body)['data']);
+              RegisterEntities.fromServer(jsonDecode(response.body)['data']);
           // var value = AuthResponse.fromJson(jsonDecode(response.body));
           // final token = value.data.token;
           // _tokenService.saveToken(token);
