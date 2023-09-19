@@ -3,8 +3,11 @@ import 'dart:io';
 import 'package:ekzh/common/navigation/route_name.dart';
 import 'package:ekzh/common/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+
+import '../../cubits/card_cubit.dart';
 
 class QrPage extends StatefulWidget {
   const QrPage({super.key});
@@ -55,11 +58,14 @@ class _QrPageState extends State<QrPage> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
-      setState(() {
+      setState(() async {
         result = scanData;
 
         controller.pauseCamera();
-        context.goNamed(RouteName.passenger);
+        final card = await BlocProvider.of<CardCubit>(context)
+            .getCardByNumber(2200100000000002);
+        log(card.toString());
+        context.pushNamed(RouteName.passenger, extra: card);
       });
     });
   }
