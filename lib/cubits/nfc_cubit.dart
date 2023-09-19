@@ -7,10 +7,10 @@ import 'package:go_router/go_router.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 
 import '../models/state/nfc_state.dart';
-import 'ui_cubit.dart';
+import 'app_cubit.dart';
 
 class NfcCubit extends Cubit<NfcState> {
-  final UiCubit _uiCubit;
+  final AppCubit _uiCubit;
   NfcCubit(this._uiCubit)
       : super(NfcState(
           isOn: NfcManager.instance.isAvailable().then((value) => value),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../cubits/ui_cubit.dart';
+import '../../../cubits/app_cubit.dart';
+import '../../../cubits/geo_cubit.dart';
 import '../../../models/app_tabs.dart';
 import '../../../models/work.dart';
 
@@ -65,9 +66,20 @@ class _StartFormFormState extends State<StartForm> {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () async {
+                  final geoCubit = BlocProvider.of<GeoCubit>(context);
+                  final appCubit = BlocProvider.of<AppCubit>(context);
                   if (formKey.currentState!.validate()) {
-                    BlocProvider.of<UiCubit>(context).updateTab(AppTabs.main);
-                    BlocProvider.of<UiCubit>(context).updateWork(Work.process);
+                    await geoCubit.getCurrentLocation();
+                    if (appCubit.state.currentWork == Work.stop) {
+                      await appCubit.startShift();
+                    }
+                    await appCubit.startRoute(
+                      vehicleNumber: transportController.text,
+                      busRouteId: 21,
+                      lat: geoCubit.state.userLocation.latitude,
+                      lng: geoCubit.state.userLocation.longitude,
+                    );
+                    appCubit.updateTab(AppTabs.main);
                   }
                 },
                 child: const Text('Начать')),

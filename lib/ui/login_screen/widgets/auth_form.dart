@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../common/navigation/route_name.dart';
 import '../../../common/theme/app_colors.dart';
-import '../../../cubits/ui_cubit.dart';
+import '../../../cubits/app_cubit.dart';
 import '../../../models/app_tabs.dart';
 import '../../common/out_button.dart';
 
@@ -81,15 +81,14 @@ class _AuthFormState extends State<AuthForm> {
             text: state.toString(),
             onTap: () {
               // getCards();
-              // final future = BlocProvider.of<UiCubit>(context).tryAuth(
-              //   loginController.text,
-              //   passwordController.text);
-              // future.then((result) {
-              //   if (formKey.currentState!.validate()) {
-              //     BlocProvider.of<UiCubit>(context).updateTab(AppTabs.work);
-              //     context.goNamed(RouteName.base);
-              //   }
-              // });
+              final future = BlocProvider.of<AppCubit>(context)
+                  .tryAuth(loginController.text, passwordController.text);
+              future.then((result) {
+                if (formKey.currentState!.validate()) {
+                  BlocProvider.of<AppCubit>(context).updateTab(AppTabs.work);
+                  context.goNamed(RouteName.base);
+                }
+              });
             },
           ),
         ],

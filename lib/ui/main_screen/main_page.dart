@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../cubits/ui_cubit.dart';
+import '../../cubits/app_cubit.dart';
 import '../../models/state/app_state.dart';
 import 'widgets/function_off.dart';
 import 'widgets/nfc_instruction.dart';
@@ -15,7 +15,7 @@ class MainPage extends StatelessWidget {
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        child: BlocBuilder<UiCubit, AppState>(
+        child: BlocBuilder<AppCubit, AppState>(
           builder: (context, state) {
             // return StreamBuilder<bool>(
             //   stream: isNfc,
