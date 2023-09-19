@@ -51,6 +51,9 @@ flutter build apk --split-per-abi
 * app-arm64-v8a-release.apk
 * app-x86_64-release.apk
 
+## Используемые HTTPS методы
+[Методы](https://mocard.ru/docs)
+
 ## Разработчики
 - Пелагейчева Мария | mobile | [Телеграм](https://t.me/MariyaViktorovna)
 - Сазонов Артем | mobile | [Телеграм](https://t.me/Drygan) [LinkedIn](https://www.linkedin.com/in/sazonov-artem/)
