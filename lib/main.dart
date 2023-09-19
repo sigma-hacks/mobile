@@ -18,8 +18,10 @@ void main() async {
   // final repository = await LocalStorage().initialiseHive();
   final cardRepo = await initialiseHive();
 
+  final cardRepo = await initialiseHive();
   await Repository().initialize();
   Repository().cardRepository = cardRepo;
+  Repository().startGettingRegistr();
 
   runApp(App(cardRepository: cardRepo));
 }

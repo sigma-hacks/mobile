@@ -36,7 +36,7 @@ class Repository {
   late CardRepository cardRepository;
 
   void startGettingRegistr() {
-    _timer = Timer.periodic(const Duration(seconds: 300), (timer) async {
+    _timer = Timer.periodic(const Duration(hours: 1), (timer) async {
       try {
         final lastUpdateTime = await _secureStorage.getLastupdateDateTime();
         if (lastUpdateTime == null) {
@@ -47,7 +47,8 @@ class Repository {
         final cards = response.registers
           .map(((e) => CardEkzh.fromRegister(e, response.names, response.tariffs)))
           .toList();
-        cardRepository.saveCardsLocally(cards: cards);
+        cardRepository.addNewCards(newCards: cards);
+        await SecureStorageService().saveLastupdateDateTime(response.lastUpdated);
       } catch (e) {
         print(e.toString());
       }

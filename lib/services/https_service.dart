@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 import 'package:ekzh/services/entities/auth_entities.dart';
 import 'package:ekzh/services/entities/pending_request.dart';
 import 'package:ekzh/services/entities/register_entities.dart';
@@ -66,7 +67,7 @@ class HttpsService {
     );
   }
 
-  Future<RegisterEntities> getRegistr({required DateTime lastUpdate}) async {
+  Future<RegisterEntities> getRegistr({required DateTime? lastUpdate}) async {
     final token = await _tokenService.getToken();
     if (token == null) {
       throw Exception("There is no token");
@@ -76,7 +77,15 @@ class HttpsService {
       "Content-Type": "application/json",
       "Authorization": "Bearer $token",
     };
-    final url = Uri.https(_baseUrl, '$_api/cards');
+
+    Map<String, String>? query;
+    if (lastUpdate != null) {
+      query = {
+      'updated_at': lastUpdate.toUtc().toString()
+      };
+    }
+     
+    final url = Uri.https(_baseUrl, '$_api/cards', query);
     return retry(
       () async {
         log('начали получать карты');
@@ -114,7 +123,6 @@ class HttpsService {
     };
     final body = json.encode(requestedBody);
     final url = Uri.https(_baseUrl, '$_api/shift/start');
-    try {
       await retry(
         () async {
           final response =
@@ -135,19 +143,30 @@ class HttpsService {
         },
         maxAttempts: 3,
         retryIf: (e) => e is TimeoutException,
-      );
-    } catch (e) {
-      if (e is TimeoutException) {
-        log('не получилось отправить начало смены');
-        final request = PendingRequest(
+      ).onError((e, _) async {
+        if (e is TimeoutException || e is SocketException) {
+          log('не получилось отправить начало смены');
+          final request = PendingRequest(
             url: url.toString(),
             body: body,
             headers: json.encode(headers),
             id: const Uuid().v4().toString());
-        await Repository().savePendingRequest(request);
-        log('сохранили начало смены');
-      }
-    }
+          log('сохранили начало смены');
+          return await Repository().savePendingRequest(request);
+        }
+      });
+    // } catch (e) {
+    //   if (e is TimeoutException || e is SocketException) {
+    //     log('не получилось отправить начало смены');
+    //     final request = PendingRequest(
+    //         url: url.toString(),
+    //         body: body,
+    //         headers: json.encode(headers),
+    //         id: const Uuid().v4().toString());
+    //     await Repository().savePendingRequest(request);
+    //     log('сохранили начало смены');
+    //   }
+    // }
   }
 
   Future stopShift() async {
@@ -163,7 +182,7 @@ class HttpsService {
     };
     final body = json.encode(requestedBody);
     final url = Uri.https(_baseUrl, '$_api/shift/stop');
-    try {
+    // try {
       return retry(
         () async {
           final response =
@@ -181,17 +200,28 @@ class HttpsService {
         },
         maxAttempts: 3,
         retryIf: (e) => e is TimeoutException,
-      );
-    } catch (e) {
-      if (e is TimeoutException) {
-        final request = PendingRequest(
+      ).onError((e, _) async {
+        if (e is TimeoutException || e is SocketException) {
+          log('не получилось отправить окончания смены');
+          final request = PendingRequest(
             url: url.toString(),
             body: body,
             headers: json.encode(headers),
             id: const Uuid().v4().toString());
-        await Repository().savePendingRequest(request);
-      }
-    }
+          log('сохранили окончения смены');
+          return await Repository().savePendingRequest(request);
+        }
+      });    
+    // } catch (e) {
+    //   if (e is TimeoutException || e is SocketException) {
+    //     final request = PendingRequest(
+    //         url: url.toString(),
+    //         body: body,
+    //         headers: json.encode(headers),
+    //         id: const Uuid().v4().toString());
+    //     await Repository().savePendingRequest(request);
+    //   }
+    // }
   }
 
   // MARK: - route
@@ -224,14 +254,12 @@ class HttpsService {
     };
     final body = json.encode(request);
     final url = Uri.https(_baseUrl, '$_api/shift/route/start');
-    try {
-      return retry(
+    return retry(
         () async {
           final response = await _client.post(
             url,
             headers: headers,
-            body: body,
-          );
+            body: body);
           if (response.statusCode == 200) {
             // var value = RegisterEntities.fromJson(jsonDecode(response.body));
             // var value = AuthResponse.fromJson(jsonDecode(response.body));
@@ -246,19 +274,19 @@ class HttpsService {
         },
         maxAttempts: 3,
         retryIf: (e) => e is TimeoutException,
-      );
-    } catch (e) {
-      if (e is TimeoutException) {
-        log('не получилось отправить начало марштура');
-        final request = PendingRequest(
+      ).onError((e, _) async {
+        if (e is TimeoutException || e is SocketException) {
+          log('не получилось отправить начало марштура');
+          final request = PendingRequest(
             url: url.toString(),
             body: body,
             headers: json.encode(headers),
             id: const Uuid().v4().toString());
-        await Repository().savePendingRequest(request);
-        log('сохранили начало маршрута');
+          log('сохранили начало маршрута');
+          return await Repository().savePendingRequest(request);
+        }
       }
-    }
+    );
   }
 
   Future stopRoute() async {
@@ -273,7 +301,7 @@ class HttpsService {
     };
     final body = json.encode(request);
     final url = Uri.https(_baseUrl, '$_api/shift/route/stop');
-    try {
+    // try {
       return retry(
         () async {
           final response = await _client.post(
@@ -295,20 +323,34 @@ class HttpsService {
         },
         maxAttempts: 3,
         retryIf: (e) => e is TimeoutException,
-      );
-    } catch (e) {
-      if (e is TimeoutException) {
-        log('не получилось отправить конец марштура');
-        final request = PendingRequest(
+      ).onError((e, _) async {
+        if (e is TimeoutException || e is SocketException) {
+          log('не получилось отправить окончание марштура');
+          final request = PendingRequest(
             url: url.toString(),
             body: body,
             headers: json.encode(headers),
             id: const Uuid().v4().toString());
+          log('сохранили окончания маршрута');
+          return await Repository().savePendingRequest(request);
+        }
+      });
 
-        await Repository().savePendingRequest(request);
-        log('сохранили конец маршрута');
-      }
-    }
+
+      
+    // } catch (e) {
+    //   if (e is TimeoutException || e is SocketException) {
+    //     log('не получилось отправить конец марштура');
+    //     final request = PendingRequest(
+    //         url: url.toString(),
+    //         body: body,
+    //         headers: json.encode(headers),
+    //         id: const Uuid().v4().toString());
+
+    //     await Repository().savePendingRequest(request);
+    //     log('сохранили конец маршрута');
+    //   }
+    // }
   }
 
   Future cardCheck(int cardNumber) async {
@@ -347,9 +389,20 @@ class HttpsService {
         },
         maxAttempts: 3,
         retryIf: (e) => e is TimeoutException,
-      );
+      ).onError((e, _) async {
+        if (e is TimeoutException || e is SocketException) {
+          log('не получилось отправить начало марштура');
+          final request = PendingRequest(
+            url: url.toString(),
+            body: body,
+            headers: json.encode(headers),
+            id: const Uuid().v4().toString());
+          log('сохранили начало маршрута');
+          return await Repository().savePendingRequest(request);
+        }
+      });
     } catch (e) {
-      if (e is TimeoutException) {
+      if (e is TimeoutException || e is SocketException) {
         final request = PendingRequest(
             url: url.toString(),
             body: body,

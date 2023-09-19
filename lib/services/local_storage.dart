@@ -20,7 +20,7 @@ Future<CardRepository> initialiseHive() async {
   Hive.registerAdapter(TariffAdapter());
 
   //box
-  final cardsBox = await Hive.openLazyBox<CardEkzh?>(cardKey);
+  final cardsBox = await Hive.openBox<CardEkzh?>(cardKey);
   //repos
   return CardRepository(cardBox: cardsBox);
 }
@@ -28,20 +28,19 @@ Future<CardRepository> initialiseHive() async {
 // }
 
 class CardRepository {
-  CardRepository({required LazyBox<CardEkzh?> cardBox}) : _cardBox = cardBox;
+  CardRepository({required Box<CardEkzh?> cardBox}) : _cardBox = cardBox;
 
   final _httpsService = HttpsService();
 
-  final LazyBox<CardEkzh?> _cardBox;
+  final Box<CardEkzh?> _cardBox;
 
   Future<List<CardEkzh>> getCards() async {
     log("получаем последнее время обновления");
-    DateTime lastUpdate;
+    DateTime? lastUpdate;
     final gettedTime = await SecureStorageService().getLastupdateDateTime();
-    if (gettedTime == null) {
-      lastUpdate = DateTime.now();
+    if (gettedTime != null) {
+      lastUpdate = DateTime.parse(gettedTime);
     }
-    lastUpdate = DateTime.parse(gettedTime!);
     log('Начали грузить карты');
     final response = await _httpsService.getRegistr(lastUpdate: lastUpdate);
     log('Загрузили, количество ${response.registers.length}');
@@ -55,6 +54,12 @@ class CardRepository {
     return cards;
   }
 
+  Future addNewCards({required List<CardEkzh> newCards}) async {
+    final existanceCards = _cardBox.keys;
+    newCards.removeWhere((e) => existanceCards.contains(e.cardNumber.hashCode));
+    await saveCardsLocally(cards: newCards);
+  }
+
   Future<void> saveCardsLocally({
     required List<CardEkzh> cards,
   }) async {
@@ -64,13 +69,13 @@ class CardRepository {
   }
 
   Future<CardEkzh?> getCardByNumber(int cardNumber) async {
-    return await _cardBox.get(cardNumber.hashCode);
+    return _cardBox.get(cardNumber.hashCode);
   }
 
   Future fetchAllLocalCards() async {
-    final count = _cardBox.keys.length;
-    log('Количество ключей $count');
-    // final localCards = _cardBox.values.toList();
-    // return localCards;
+    // final count = _cardBox.keys.length;
+    // log('Количество ключей $count');
+    final localCards = _cardBox.values.toList();
+    return localCards;
   }
 }
