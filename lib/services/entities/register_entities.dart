@@ -32,7 +32,13 @@ class RegisterEntities {
     final registers = json['cards'] as List<dynamic>;
     final finalRegisters = registers.map((e) => Register.fromList(e)).toList();
 
-    final names = json['names'] as Map<String,dynamic>;
+    Map<String,dynamic> names;
+
+    if (json['names'].runtimeType == List) {
+      names = {};
+    } else {
+      names = json['names'] as Map<String,dynamic>;
+    }
 
     return RegisterEntities(
       lastUpdated: DateTime.now(),
