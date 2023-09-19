@@ -24,7 +24,7 @@ class CardEkzh with _$CardEkzh {
       Register register, Map<String, dynamic> names, List<Tariff> tariffs) {
     try {
       final tariff = tariffs.firstWhere((e) => register.tariffId == e.id,
-          orElse: () => const Tariff(name: "Default", amount: 100, id: 0));
+          orElse: () => const Tariff(name: "Полный", amount: 100, id: 0));
       return CardEkzh(
           hash: register.hash,
           birthdate: register.birthdate,
@@ -38,7 +38,7 @@ class CardEkzh with _$CardEkzh {
           birthdate: 1,
           cardNumber: 1,
           expirationDate: 1,
-          tariff: Tariff(name: "Default", amount: 100, id: 0),
+          tariff: Tariff(name: "Полный", amount: 100, id: 0),
           name: "1234");
     }
   }

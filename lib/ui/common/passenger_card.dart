@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../common/theme/app_colors.dart';
-import '../../models/passenger.dart';
+import '../../common/utils.dart';
 import '../../services/entities/card_ekzh.dart';
 import 'wrapper.dart';
 
@@ -12,6 +12,13 @@ class PassengerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int age = DateTime.now()
+            .difference(
+                DateTime.fromMicrosecondsSinceEpoch(passenger.birthdate))
+            .inDays ~/
+        365;
+    final String nubmerOfCard =
+        '****-****-****-${passenger.cardNumber.toString().substring(12, 16)}';
     return Wrapper(
         margin: 0,
         color: AppColors.blueLighter,
@@ -23,7 +30,7 @@ class PassengerCard extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              '${DateTime.now().difference(DateTime.fromMicrosecondsSinceEpoch(passenger.birthdate)).inDays ~/ 365} лет',
+              '$age ${getWordOrg(age, "год", "года", "лет")}',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             Text(
@@ -38,7 +45,7 @@ class PassengerCard extends StatelessWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 18),
-            Text(passenger.cardNumber.toString()),
+            Text(nubmerOfCard),
             Text(
               'до ${DateFormat('dd.MM.yyyy').format(DateTime.fromMicrosecondsSinceEpoch(passenger.expirationDate))}',
               style: Theme.of(context).textTheme.bodySmall,
